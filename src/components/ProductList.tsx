@@ -29,7 +29,7 @@ export const ProductList: React.FC<ProductListProps> = ({
 
   if (products.length === 0) {
     return (
-      <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-3xl p-8 text-center space-y-4 border border-[var(--md-sys-color-outline-variant)]/40">
+      <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[28px] p-8 text-center space-y-4 border border-[var(--md-sys-color-outline-variant)]/40">
         <div className="w-16 h-16 rounded-full bg-[var(--md-sys-color-surface-container-high)] flex items-center justify-center mx-auto text-3xl">
           {categoryEmoji || '🛒'}
         </div>

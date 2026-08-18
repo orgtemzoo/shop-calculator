@@ -96,15 +96,15 @@ export const TabModal: React.FC<TabModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Например: Кофе и чай"
-              className="w-full px-3.5 py-2.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-sm text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
+              className="w-full px-4 py-3 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl text-sm text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)] focus:ring-2 focus:ring-[var(--md-sys-color-primary)]/20 transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5">
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
               Иконка:
             </label>
-            <div className="flex flex-wrap gap-1.5 p-2 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-xl max-h-28 overflow-y-auto">
+            <div className="flex flex-wrap gap-1.5 p-2 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-2xl max-h-28 overflow-y-auto">
               {EMOJI_PRESETS.map((em) => (
                 <button
                   key={em}
@@ -113,9 +113,9 @@ export const TabModal: React.FC<TabModalProps> = ({
                     triggerHaptic('light');
                     setEmoji(em);
                   }}
-                  className={`w-9 h-9 rounded-lg text-lg flex items-center justify-center transition-all cursor-pointer ${
+                  className={`w-9 h-9 rounded-xl text-lg flex items-center justify-center transition-all cursor-pointer ${
                     emoji === em
-                      ? 'bg-[var(--md-sys-color-secondary-container)] scale-110'
+                      ? 'bg-[var(--md-sys-color-secondary-container)] scale-110 shadow-xs'
                       : 'hover:bg-[var(--md-sys-color-surface-container-high)]'
                   }`}
                 >
@@ -126,13 +126,13 @@ export const TabModal: React.FC<TabModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1 pl-1">
               Единица измерения по умолчанию:
             </label>
             <select
               value={defaultUnit}
               onChange={(e) => setDefaultUnit(e.target.value as UnitType)}
-              className="w-full px-3.5 py-2.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)] cursor-pointer"
+              className="w-full px-4 py-3 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)] cursor-pointer"
             >
               <option value="g">Граммы (г) / Килограммы (кг)</option>
               <option value="ml">Миллилитры (мл) / Литры (л)</option>

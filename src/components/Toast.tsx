@@ -20,7 +20,7 @@ export const ToastContainer: React.FC<ToastProps> = ({ toasts, onDismiss }) => {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className="pointer-events-auto flex items-center justify-between p-3.5 rounded-xl bg-[var(--md-sys-color-inverse-surface)] text-[var(--md-sys-color-inverse-on-surface)] shadow-lg transition-all animate-in slide-in-from-bottom-2"
+          className="pointer-events-auto flex items-center justify-between px-4 py-3 rounded-2xl bg-[var(--md-sys-color-inverse-surface)] text-[var(--md-sys-color-inverse-on-surface)] shadow-lg transition-all animate-in slide-in-from-bottom-2"
         >
           <div className="flex items-center gap-2.5 text-xs sm:text-sm font-medium">
             <MaterialIcon

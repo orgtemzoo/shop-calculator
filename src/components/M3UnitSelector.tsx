@@ -60,9 +60,9 @@ export const M3UnitSelector: React.FC<M3UnitSelectorProps> = ({ value, onChange 
           triggerHaptic('light');
           setIsOpen(!isOpen);
         }}
-        className={`h-12 min-w-[72px] px-3 bg-[var(--md-sys-color-surface)] border rounded-xl flex items-center justify-between gap-1 transition-all cursor-pointer select-none ${
+        className={`h-12 min-w-[72px] px-3.5 bg-[var(--md-sys-color-surface)] border rounded-2xl flex items-center justify-between gap-1 transition-all cursor-pointer select-none ${
           isOpen
-            ? 'border-[var(--md-sys-color-primary)] ring-1 ring-[var(--md-sys-color-primary)]'
+            ? 'border-[var(--md-sys-color-primary)] ring-2 ring-[var(--md-sys-color-primary)]/20'
             : 'border-[var(--md-sys-color-outline)] hover:border-[var(--md-sys-color-on-surface)]'
         }`}
       >

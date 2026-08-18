@@ -121,7 +121,7 @@ export const JsonModal: React.FC<JsonModalProps> = ({
                 readOnly
                 rows={7}
                 value={currentJson}
-                className="w-full p-3.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none select-all"
+                className="w-full p-4 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none select-all"
               />
               <div className="flex flex-col sm:flex-row items-center justify-end gap-2 pt-1">
                 <button
@@ -147,7 +147,7 @@ export const JsonModal: React.FC<JsonModalProps> = ({
                 value={jsonText}
                 onChange={(e) => setJsonText(e.target.value)}
                 placeholder="Вставьте сюда ранее экспортированный JSON..."
-                className="w-full p-3.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none"
+                className="w-full p-4 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none"
               />
               <div className="flex items-center justify-end pt-1">
                 <button

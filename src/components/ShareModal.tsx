@@ -114,7 +114,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
             readOnly
             rows={7}
             value={reportText}
-            className="w-full p-3.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none select-all"
+            className="w-full p-4 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none select-all"
           />
         </div>
 

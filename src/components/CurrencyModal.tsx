@@ -96,7 +96,7 @@ export const CurrencyModal: React.FC<CurrencyModalProps> = ({
         </div>
 
         {/* Search input */}
-        <div className="relative flex items-center h-10 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl px-3 focus-within:border-[var(--md-sys-color-primary)]">
+        <div className="relative flex items-center h-11 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-full px-4 focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
           <MaterialIcon name="search" className="text-lg text-[var(--md-sys-color-on-surface-variant)] mr-2" />
           <input
             type="text"
@@ -108,7 +108,7 @@ export const CurrencyModal: React.FC<CurrencyModalProps> = ({
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)]"
+              className="text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] cursor-pointer"
             >
               <MaterialIcon name="close" className="text-base" />
             </button>
@@ -127,7 +127,7 @@ export const CurrencyModal: React.FC<CurrencyModalProps> = ({
                   onSelectCurrency(cur.symbol);
                   onClose();
                 }}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-left ${
                   isSelected
                     ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
                     : 'hover:bg-[var(--md-sys-color-on-surface)]/8 text-[var(--md-sys-color-on-surface)]'

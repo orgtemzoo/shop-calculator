@@ -33,34 +33,34 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       100
     ).toFixed(1);
     const diffRub = (secondBestPrice - product.pricePerStandardUnit).toFixed(2);
-    bestSavingsText = `Выгоднее второго места на ${diffPct}% (экономия ${diffRub} ${currencySymbol} за ${unitInfo.standardUnit})`;
+    bestSavingsText = `Выгоднее 2-го места на ${diffPct}% (экономия ${diffRub} ${currencySymbol} за ${unitInfo.standardUnit})`;
   }
 
   return (
     <div
-      className={`rounded-3xl p-5 transition-all ${
+      className={`rounded-[28px] p-5 sm:p-6 transition-all ${
         isBest
-          ? 'bg-[var(--md-sys-color-primary-container)]/30 border-2 border-[var(--md-sys-color-primary)]'
+          ? 'bg-[var(--md-sys-color-primary-container)]/35 border-2 border-[var(--md-sys-color-primary)]'
           : 'bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline-variant)]/60'
       }`}
     >
       {/* Top row: Rank, Best Deal Badge & Name */}
       <div className="flex items-start justify-between gap-3">
-        <div className="space-y-1 min-w-0 flex-1">
+        <div className="space-y-1.5 min-w-0 flex-1">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="h-6 px-2.5 rounded-full text-xs font-bold inline-flex items-center justify-center bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface-variant)]">
+            <span className="h-6 px-3 rounded-full text-xs font-bold inline-flex items-center justify-center bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface-variant)]">
               #{product.rank}
             </span>
 
             {isBest && (
-              <span className="h-6 px-2.5 rounded-full text-xs font-semibold inline-flex items-center gap-1 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)]">
+              <span className="h-6 px-3 rounded-full text-xs font-semibold inline-flex items-center gap-1 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] shadow-xs">
                 <MaterialIcon name="emoji_events" className="text-sm" filled />
                 <span>Самый выгодный</span>
               </span>
             )}
 
             {product.discountSummaryText && (
-              <span className="h-6 px-2.5 rounded-full text-xs font-medium inline-flex items-center gap-1 bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]">
+              <span className="h-6 px-3 rounded-full text-xs font-medium inline-flex items-center gap-1 bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]">
                 <MaterialIcon name="sell" className="text-xs" />
                 <span>{product.discountSummaryText}</span>
               </span>
@@ -81,7 +81,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Main Unit Price */}
         <div className="text-right shrink-0">
           <div
-            className={`text-xl font-bold tracking-tight ${
+            className={`text-xl sm:text-2xl font-bold tracking-tight ${
               isBest
                 ? 'text-[var(--md-sys-color-primary)]'
                 : 'text-[var(--md-sys-color-on-surface)]'
@@ -97,16 +97,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Difference breakdown for comparison */}
       {totalInGroup > 1 && (
-        <div className="mt-3.5 pt-3 border-t border-[var(--md-sys-color-outline-variant)]/40">
+        <div className="mt-4 pt-3 border-t border-[var(--md-sys-color-outline-variant)]/40">
           {product.isBestDeal ? (
             bestSavingsText ? (
-              <div className="flex items-center gap-1.5 text-xs font-medium text-[var(--md-sys-color-primary)] bg-[var(--md-sys-color-primary-container)]/50 px-3 py-1.5 rounded-xl">
+              <div className="flex items-center gap-1.5 text-xs font-medium text-[var(--md-sys-color-primary)] bg-[var(--md-sys-color-primary-container)]/50 px-3.5 py-2 rounded-full">
                 <MaterialIcon name="trending_down" className="text-base shrink-0" />
                 <span>{bestSavingsText}</span>
               </div>
             ) : null
           ) : (
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               <div className="flex items-center justify-between text-xs font-medium text-[var(--md-sys-color-error)]">
                 <div className="flex items-center gap-1">
                   <MaterialIcon name="trending_up" className="text-sm shrink-0" />
@@ -115,7 +115,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 <span>+{(product.diffPriceVsBest).toFixed(2)} {currencySymbol} / {unitInfo.standardUnit}</span>
               </div>
 
-              <div className="w-full bg-[var(--md-sys-color-surface-container-highest)] h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-[var(--md-sys-color-surface-container-highest)] h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-[var(--md-sys-color-error)] h-full rounded-full transition-all duration-300"
                   style={{
@@ -129,14 +129,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       )}
 
       {/* M3 Card Action Row */}
-      <div className="mt-3 pt-2 flex items-center justify-end gap-1 border-t border-[var(--md-sys-color-outline-variant)]/30">
+      <div className="mt-3 pt-2 flex items-center justify-end gap-1.5 border-t border-[var(--md-sys-color-outline-variant)]/30">
         <button
           onClick={() => {
             triggerHaptic('light');
             onDuplicate(product);
           }}
           title="Дублировать"
-          className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 transition-colors"
+          className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors cursor-pointer"
         >
           <MaterialIcon name="content_copy" className="text-base" />
         </button>
@@ -147,7 +147,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             onEdit(product);
           }}
           title="Редактировать"
-          className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 transition-colors"
+          className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors cursor-pointer"
         >
           <MaterialIcon name="edit" className="text-base" />
         </button>
@@ -158,7 +158,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             onDelete(product.id);
           }}
           title="Удалить"
-          className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 transition-colors"
+          className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 active:bg-[var(--md-sys-color-error-container)]/50 transition-colors cursor-pointer"
         >
           <MaterialIcon name="delete" className="text-base" />
         </button>

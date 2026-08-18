@@ -118,9 +118,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               type: 'best',
               text: `Самая выгодная цена в списке (-${diffPct}%)`
             };
-          } else if (
-            Math.abs(calculated.pricePerStandardUnit - bestExisting.pricePerStandardUnit) < 0.01
-          ) {
+          } else if (calculated.pricePerStandardUnit === bestExisting.pricePerStandardUnit) {
             comparisonBadge = {
               type: 'equal',
               text: 'Равна лучшей цене в списке'
@@ -149,69 +147,65 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     }
 
     return null;
-  }, [
-    price,
-    quantity,
-    unit,
-    packCount,
-    isMultiPack,
-    discountType,
-    discountValue,
-    existingProducts,
-    editingProduct,
-    currentUnitInfo,
-    name
-  ]);
+  }, [price, quantity, unit, packCount, isMultiPack, discountType, discountValue, name, existingProducts, editingProduct, currentUnitInfo, currencySymbol]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const numPrice = parseFloat(price);
     const numQty = parseFloat(quantity);
-    const numPack = isMultiPack ? Math.max(parseInt(packCount, 10) || 1, 1) : 1;
+    const numPack = isMultiPack ? parseInt(packCount, 10) || 1 : 1;
     const numDiscVal = discountValue ? parseFloat(discountValue) : undefined;
 
-    if (!isNaN(numPrice) && numPrice > 0 && !isNaN(numQty) && numQty > 0) {
-      triggerHaptic('success');
-      onSaveProduct({
-        name: name.trim() || `Товар (${numQty} ${currentUnitInfo.shortLabel})`,
-        price: numPrice,
-        quantity: numQty,
-        unit,
-        packCount: numPack,
-        discountType,
-        discountValue: numDiscVal
-      });
+    if (isNaN(numPrice) || numPrice <= 0 || isNaN(numQty) || numQty <= 0) {
+      triggerHaptic('warning');
+      return;
+    }
 
-      if (!editingProduct) {
-        resetForm();
-      }
+    triggerHaptic('success');
+    onSaveProduct({
+      name: name.trim() || `Товар ${formatQuantity(numQty, unit, numPack)}`,
+      price: numPrice,
+      quantity: numQty,
+      unit: unit,
+      packCount: numPack,
+      discountType: discountType,
+      discountValue: numDiscVal
+    });
+
+    if (!editingProduct) {
+      resetForm();
     }
   };
 
-  const applyPreset = (presetValue: number, presetUnit: UnitType) => {
+  const applyPreset = (presetQty: number, presetUnit: UnitType) => {
     triggerHaptic('light');
-    setQuantity(String(presetValue));
+    setQuantity(String(presetQty));
     setUnit(presetUnit);
   };
 
   return (
-    <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-3xl p-5 sm:p-6 border border-[var(--md-sys-color-outline-variant)]/40 transition-all">
+    <div className="bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)] rounded-[28px] p-5 sm:p-6 border border-[var(--md-sys-color-outline-variant)]/60 shadow-xs">
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Form Title & Edit Indicator */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center">
               <MaterialIcon name={editingProduct ? 'edit' : 'add'} className="text-xl" />
             </div>
-            <h2 className="text-base font-semibold text-[var(--md-sys-color-on-surface)]">
-              {editingProduct ? 'Редактировать товар' : 'Добавить товар'}
-            </h2>
+            <div>
+              <h2 className="text-base font-semibold text-[var(--md-sys-color-on-surface)]">
+                {editingProduct ? 'Редактировать товар' : 'Добавить товар'}
+              </h2>
+              <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
+                Укажите цену и вес для точного расчёта
+              </p>
+            </div>
           </div>
           {editingProduct && (
             <button
               type="button"
               onClick={onCancelEdit}
-              className="text-xs font-medium text-[var(--md-sys-color-primary)] px-3 py-1 rounded-full hover:bg-[var(--md-sys-color-primary)]/8 transition-colors"
+              className="text-xs font-semibold text-[var(--md-sys-color-primary)] px-4 py-1.5 rounded-full hover:bg-[var(--md-sys-color-primary)]/12 transition-colors cursor-pointer"
             >
               Отмена
             </button>
@@ -220,22 +214,22 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* M3 Outlined Text Field: Product Name */}
         <div>
-          <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
-            Название товара
+          <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
+            Название товара (опционально)
           </label>
-          <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
+          <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Например: Молоко Простоквашино"
+              placeholder="Например: Молоко Домик в деревне"
               className="w-full h-full px-4 bg-transparent text-sm text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
             />
             {name && (
               <button
                 type="button"
                 onClick={() => setName('')}
-                className="w-10 h-10 mr-1 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8"
+                className="w-9 h-9 mr-1.5 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 cursor-pointer"
               >
                 <MaterialIcon name="close" className="text-lg" />
               </button>
@@ -247,10 +241,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {/* Price */}
           <div>
-            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
               Цена <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
-            <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
+            <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
               <input
                 type="number"
                 inputMode="decimal"
@@ -260,7 +254,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="100.00"
-                className="w-full h-full pl-4 pr-9 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
+                className="w-full h-full pl-4 pr-10 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
               />
               <span className="absolute right-4 text-sm font-semibold text-[var(--md-sys-color-on-surface-variant)] pointer-events-none">
                 {currencySymbol}
@@ -270,11 +264,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
           {/* Quantity & Unit */}
           <div>
-            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
               Вес / объём / количество <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
             <div className="flex gap-2">
-              <div className="flex-1 relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
+              <div className="flex-1 relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
                 <input
                   type="number"
                   inputMode="decimal"
@@ -294,10 +288,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
         </div>
 
-        {/* M3 Suggestion Chips (Presets) */}
+        {/* M3 Suggestion Chips (Presets): Rounded-Full Pills */}
         {currentGroupPresets.length > 0 && (
-          <div>
-            <span className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5">
+          <div className="pt-0.5">
+            <span className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
               Популярная фасовка:
             </span>
             <div className="flex flex-wrap gap-1.5">
@@ -309,7 +303,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     key={`${preset.value}-${preset.unit}`}
                     type="button"
                     onClick={() => applyPreset(preset.value, preset.unit)}
-                    className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1 transition-all ${
+                    className={`h-8 px-3.5 rounded-full text-xs font-medium inline-flex items-center gap-1 transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
                         : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
@@ -324,15 +318,15 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
         )}
 
-        {/* M3 Filter Chips: Multipack & Promo toggles */}
-        <div className="flex flex-wrap items-center gap-2 pt-0.5">
+        {/* M3 Filter Chips: Multipack & Promo toggles (Rounded-Full Pills) */}
+        <div className="flex flex-wrap items-center gap-2 pt-1">
           <button
             type="button"
             onClick={() => {
               triggerHaptic('light');
               setIsMultiPack(!isMultiPack);
             }}
-            className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
+            className={`h-8 px-3.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
               isMultiPack
                 ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
                 : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
@@ -348,84 +342,68 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               triggerHaptic('light');
               setShowPromoOptions(!showPromoOptions);
             }}
-            className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
-              discountType !== 'none' || showPromoOptions
-                ? 'bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] font-semibold'
+            className={`h-8 px-3.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
+              showPromoOptions || discountType !== 'none'
+                ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
                 : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
             }`}
           >
-            <MaterialIcon name="sell" className="text-base" />
+            <MaterialIcon name="local_offer" className="text-base" />
             <span>
               {discountType !== 'none'
-                ? `${DISCOUNT_LABELS[discountType]}`
-                : 'Скидка / акция'}
+                ? `Акция: ${DISCOUNT_LABELS[discountType]}`
+                : 'Акции и скидки'}
             </span>
+            <MaterialIcon
+              name={showPromoOptions ? 'expand_less' : 'expand_more'}
+              className="text-base"
+            />
           </button>
         </div>
 
-        {/* Multipack details */}
+        {/* Multipack options */}
         {isMultiPack && (
-          <div className="p-3.5 bg-[var(--md-sys-color-surface-container)] rounded-2xl space-y-2 animate-in fade-in-50">
+          <div className="p-4 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-2xl space-y-2 animate-in fade-in-50">
             <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface)]">
-              Количество упаковок в наборе:
+              Количество штук в упаковке:
             </label>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <input
                 type="number"
                 inputMode="numeric"
                 min="2"
-                max="1000"
+                max="999"
                 value={packCount}
                 onChange={(e) => setPackCount(e.target.value)}
-                className="w-24 px-3 py-1.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-lg text-sm font-semibold text-[var(--md-sys-color-on-surface)]"
+                className="w-24 px-3.5 py-2 bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)] rounded-xl text-sm font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
               />
               <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
-                Итого:{' '}
-                <strong>
-                  {formatQuantity(
-                    parseFloat(quantity) || 0,
-                    unit,
-                    parseInt(packCount, 10) || 1
-                  )}
-                </strong>
+                шт. по {quantity || '0'} {currentUnitInfo.label} (всего{' '}
+                {((parseFloat(quantity) || 0) * (parseInt(packCount, 10) || 1)).toFixed(
+                  unit === 'kg' || unit === 'l' ? 2 : 0
+                )}{' '}
+                {currentUnitInfo.label})
               </span>
             </div>
           </div>
         )}
 
-        {/* Promo / Discount Chips */}
+        {/* Promo discount options */}
         {showPromoOptions && (
-          <div className="p-4 bg-[var(--md-sys-color-surface-container)] rounded-2xl space-y-3 animate-in fade-in-50">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-[var(--md-sys-color-on-surface)]">
-                Тип скидки / акции:
-              </span>
-              {discountType !== 'none' && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDiscountType('none');
-                    setDiscountValue('');
-                  }}
-                  className="text-xs text-[var(--md-sys-color-primary)] font-medium hover:underline"
-                >
-                  Сбросить
-                </button>
-              )}
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+          <div className="p-4 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-2xl space-y-3 animate-in fade-in-50">
+            <span className="block text-xs font-medium text-[var(--md-sys-color-on-surface)]">
+              Тип скидки или спецпредложения:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
               {(
                 [
-                  ['none', 'Без акции'],
-                  ['percent', 'Скидка в %'],
+                  ['none', 'Без скидки'],
+                  ['percent', '% Скидка'],
                   ['card', 'По карте'],
-                  ['buy1get1', '1+1 (50%)'],
-                  ['buy2get1', '2+1 (33%)'],
-                  ['buy3get1', '3+1 (25%)'],
-                  ['secondHalf', '-50% на 2-й'],
-                  ['second70', '-70% на 2-й']
-                ] as Array<[DiscountType, string]>
+                  ['1+1', '1+1 (–50%)'],
+                  ['2+1', '2+1 (–33%)'],
+                  ['second_half', '2-й за –50%']
+                ] as [DiscountType, string][]
               ).map(([type, label]) => {
                 const isSelected = discountType === type;
                 return (
@@ -436,10 +414,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       triggerHaptic('light');
                       setDiscountType(type);
                     }}
-                    className={`h-8 px-2.5 rounded-lg text-xs font-medium text-center transition-all cursor-pointer ${
+                    className={`h-8 px-3.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
-                        : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                        : 'bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
                     }`}
                   >
                     {label}
@@ -451,7 +429,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             {discountType === 'percent' && (
               <div className="flex items-center gap-2 pt-1">
                 <span className="text-xs font-medium text-[var(--md-sys-color-on-surface)]">
-                  Скидка:
+                  Размер скидки:
                 </span>
                 <input
                   type="number"
@@ -461,7 +439,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   value={discountValue}
                   onChange={(e) => setDiscountValue(e.target.value)}
                   placeholder="20"
-                  className="w-24 px-3 py-1.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-lg text-xs font-semibold text-[var(--md-sys-color-on-surface)]"
+                  className="w-24 px-3 py-1.5 bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
                 />
                 <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">%</span>
               </div>
@@ -470,7 +448,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             {discountType === 'card' && (
               <div className="flex items-center gap-2 pt-1">
                 <span className="text-xs font-medium text-[var(--md-sys-color-on-surface)]">
-                  Цена по карте:
+                  Цена по карте магазина:
                 </span>
                 <input
                   type="number"
@@ -480,7 +458,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   value={discountValue}
                   onChange={(e) => setDiscountValue(e.target.value)}
                   placeholder="119.90"
-                  className="w-28 px-3 py-1.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-lg text-xs font-semibold text-[var(--md-sys-color-on-surface)]"
+                  className="w-28 px-3 py-1.5 bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
                 />
                 <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">{currencySymbol}</span>
               </div>
@@ -490,7 +468,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* Live Preview Card */}
         {liveCalculated && (
-          <div className="p-4 bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-2xl border border-[var(--md-sys-color-outline-variant)]/60 space-y-1.5 animate-in fade-in-50">
+          <div className="p-4 bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[20px] border border-[var(--md-sys-color-outline-variant)]/60 space-y-1.5 animate-in fade-in-50">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">
                 Предпросмотр расчёта:
@@ -507,7 +485,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
             {liveCalculated.comparisonBadge && (
               <div
-                className={`text-xs font-medium px-3 py-1.5 rounded-xl ${
+                className={`text-xs font-medium px-3.5 py-1.5 rounded-full inline-flex items-center ${
                   liveCalculated.comparisonBadge.type === 'best'
                     ? 'bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)]'
                     : liveCalculated.comparisonBadge.type === 'equal'
@@ -521,10 +499,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
         )}
 
-        {/* M3 Filled Button: Submit */}
+        {/* M3 Filled Button: Submit (Rounded Full) */}
         <button
           type="submit"
-          className="w-full h-11 rounded-full font-medium text-sm text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer transition-all"
+          className="w-full h-12 rounded-full font-semibold text-sm text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-95 active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all"
         >
           <MaterialIcon name={editingProduct ? 'check' : 'add'} className="text-xl" />
           <span>{editingProduct ? 'Сохранить изменения' : 'Добавить в список'}</span>

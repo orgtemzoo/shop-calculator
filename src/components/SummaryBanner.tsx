@@ -28,10 +28,10 @@ export const SummaryBanner: React.FC<SummaryBannerProps> = ({ products, currency
   ).toFixed(1);
 
   return (
-    <div className="bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] rounded-3xl p-5 border border-[var(--md-sys-color-primary)]/20 transition-all">
+    <div className="bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] rounded-[28px] p-5 sm:p-6 border border-[var(--md-sys-color-primary)]/20 shadow-xs transition-all">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] flex items-center justify-center shrink-0">
+          <div className="w-11 h-11 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] flex items-center justify-center shrink-0 shadow-xs">
             <MaterialIcon name="savings" className="text-2xl" filled />
           </div>
           <div>

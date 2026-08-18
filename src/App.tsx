@@ -71,7 +71,7 @@ export const App: React.FC = () => {
       // Update meta theme-color for iOS / Android mobile chrome
       const metaThemeColor = document.querySelector('meta[name="theme-color"]');
       if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', isDark ? '#101511' : '#006d44');
+        metaThemeColor.setAttribute('content', isDark ? '#111318' : '#f9f9ff');
       }
     };
 

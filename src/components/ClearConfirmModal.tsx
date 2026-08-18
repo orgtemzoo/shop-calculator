@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trash2 } from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 import { triggerHaptic } from '../utils/haptics';
 
 interface ClearConfirmModalProps {
@@ -18,26 +18,26 @@ export const ClearConfirmModal: React.FC<ClearConfirmModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-50">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl max-w-sm w-full overflow-hidden animate-in zoom-in-95 p-5 text-center space-y-4">
-        <div className="w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center mx-auto">
-          <Trash2 className="w-6 h-6" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in-50">
+      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] border border-[var(--md-sys-color-outline-variant)]/60 shadow-2xl max-w-sm w-full p-6 text-center space-y-4 animate-in zoom-in-95">
+        <div className="w-12 h-12 rounded-full bg-[var(--md-sys-color-error-container)] text-[var(--md-sys-color-on-error-container)] flex items-center justify-center mx-auto">
+          <MaterialIcon name="delete_forever" className="text-2xl" />
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
-            Очистить список «{categoryTitle}»?
+          <h3 className="text-base font-semibold text-[var(--md-sys-color-on-surface)]">
+            Очистить «{categoryTitle}»?
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Все добавленные товары в этой категории будут удалены.
+          <p className="text-xs text-[var(--md-sys-color-on-surface-variant)] leading-relaxed">
+            Все товары в этой категории будут безвозвратно удалены.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5 pt-2">
+        <div className="flex items-center justify-end gap-2 pt-2">
           <button
             type="button"
             onClick={onClose}
-            className="py-2.5 px-4 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            className="flex-1 h-10 px-4 rounded-full text-xs font-medium text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-on-surface)]/8 transition-colors"
           >
             Отмена
           </button>
@@ -48,9 +48,9 @@ export const ClearConfirmModal: React.FC<ClearConfirmModalProps> = ({
               onConfirm();
               onClose();
             }}
-            className="py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-rose-600 hover:bg-rose-500 active:scale-[0.99] shadow-md shadow-rose-600/20 transition-all"
+            className="flex-1 h-10 px-5 rounded-full text-xs font-medium text-[var(--md-sys-color-on-error)] bg-[var(--md-sys-color-error)] hover:opacity-90 transition-all cursor-pointer"
           >
-            Удалить всё
+            Очистить
           </button>
         </div>
       </div>

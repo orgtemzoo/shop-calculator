@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Download, Upload, Check } from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 import { AppState } from '../types';
 import { exportToJson, importFromJson } from '../utils/storage';
 import { triggerHaptic } from '../utils/haptics';
@@ -71,87 +71,94 @@ export const JsonModal: React.FC<JsonModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-50">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95">
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-            Резервное копирование и синхронизация
-          </h3>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in-50">
+      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] border border-[var(--md-sys-color-outline-variant)]/60 shadow-2xl max-w-lg w-full p-6 space-y-4 animate-in zoom-in-95">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center">
+              <MaterialIcon name="sync" className="text-xl" />
+            </div>
+            <h3 className="text-lg font-semibold text-[var(--md-sys-color-on-surface)]">
+              Резервная копия
+            </h3>
+          </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8"
           >
-            <X className="w-5 h-5" />
+            <MaterialIcon name="close" className="text-xl" />
           </button>
         </div>
 
-        {/* Tab switch */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+        {/* M3 Segmented Buttons for Export / Import */}
+        <div className="flex bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] rounded-full p-1">
           <button
             onClick={() => setActiveTab('export')}
-            className={`flex-1 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition-colors ${
+            className={`flex-1 h-9 rounded-full text-xs font-medium transition-all ${
               activeTab === 'export'
-                ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-white dark:bg-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
+                : 'text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
             }`}
           >
             Экспорт (Сохранить)
           </button>
           <button
             onClick={() => setActiveTab('import')}
-            className={`flex-1 py-2.5 text-xs sm:text-sm font-bold border-b-2 transition-colors ${
+            className={`flex-1 h-9 rounded-full text-xs font-medium transition-all ${
               activeTab === 'import'
-                ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-white dark:bg-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
+                : 'text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
             }`}
           >
             Импорт (Восстановить)
           </button>
         </div>
 
-        <div className="p-4 sm:p-5 space-y-4">
+        <div className="space-y-3">
           {activeTab === 'export' ? (
             <>
               <textarea
                 readOnly
-                rows={8}
+                rows={7}
                 value={currentJson}
-                className="w-full p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-mono text-slate-800 dark:text-slate-200 focus:outline-none resize-none select-all"
+                className="w-full p-3.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none select-all"
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                <button
-                  onClick={handleCopyJson}
-                  className="py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 text-white hover:bg-emerald-500 flex items-center justify-center gap-2"
-                >
-                  {copied ? <Check className="w-4 h-4" /> : <Download className="w-4 h-4" />}
-                  <span>{copied ? 'Скопировано!' : 'Копировать JSON'}</span>
-                </button>
+              <div className="flex flex-col sm:flex-row items-center justify-end gap-2 pt-1">
                 <button
                   onClick={handleDownloadFile}
-                  className="py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto h-10 px-5 rounded-full text-xs font-medium text-[var(--md-sys-color-primary)] border border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-primary)]/8 flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                 >
-                  <Download className="w-4 h-4 text-sky-500" />
+                  <MaterialIcon name="download" className="text-base" />
                   <span>Скачать .json файл</span>
+                </button>
+                <button
+                  onClick={handleCopyJson}
+                  className="w-full sm:w-auto h-10 px-6 rounded-full text-xs font-medium text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <MaterialIcon name={copied ? 'check' : 'content_copy'} className="text-base" />
+                  <span>{copied ? 'Скопировано!' : 'Копировать JSON'}</span>
                 </button>
               </div>
             </>
           ) : (
             <>
               <textarea
-                rows={8}
+                rows={7}
                 value={jsonText}
                 onChange={(e) => setJsonText(e.target.value)}
                 placeholder="Вставьте сюда ранее экспортированный JSON..."
-                className="w-full p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-mono text-slate-800 dark:text-slate-200 focus:outline-none resize-none"
+                className="w-full p-3.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none"
               />
-              <button
-                onClick={handleImport}
-                disabled={!jsonText.trim()}
-                className="w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 text-white hover:bg-emerald-500 disabled:opacity-50 flex items-center justify-center gap-2"
-              >
-                <Upload className="w-4 h-4" />
-                <span>Восстановить данные</span>
-              </button>
+              <div className="flex items-center justify-end pt-1">
+                <button
+                  onClick={handleImport}
+                  disabled={!jsonText.trim()}
+                  className="w-full sm:w-auto h-10 px-6 rounded-full text-xs font-medium text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 disabled:opacity-40 flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <MaterialIcon name="upload" className="text-base" />
+                  <span>Восстановить данные</span>
+                </button>
+              </div>
             </>
           )}
         </div>

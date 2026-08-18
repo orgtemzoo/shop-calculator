@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ArrowUpDown,
-  PlusCircle
-} from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 import { CalculatedProduct } from '../types';
 import { ProductCard } from './ProductCard';
 import { triggerHaptic } from '../utils/haptics';
@@ -30,16 +27,16 @@ export const ProductList: React.FC<ProductListProps> = ({
 
   if (products.length === 0) {
     return (
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-8 text-center space-y-4 shadow-sm">
-        <div className="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto text-3xl shadow-inner ring-1 ring-emerald-500/20">
+      <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-3xl p-8 text-center space-y-4 border border-[var(--md-sys-color-outline-variant)]/40">
+        <div className="w-16 h-16 rounded-full bg-[var(--md-sys-color-surface-container-high)] flex items-center justify-center mx-auto text-3xl">
           {categoryEmoji || '🛒'}
         </div>
         <div className="max-w-sm mx-auto space-y-1">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-            В категории «{categoryTitle}» пока пусто
+          <h3 className="text-base font-semibold text-[var(--md-sys-color-on-surface)]">
+            В категории «{categoryTitle}» пока нет товаров
           </h3>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-            Добавьте хотя бы 2 похожих товара выше, и калькулятор моментально покажет самый выгодный вариант!
+          <p className="text-xs text-[var(--md-sys-color-on-surface-variant)] leading-relaxed">
+            Добавьте 2 или более товара выше, и калькулятор рассчитает цену за стандартную единицу и покажет выгоду.
           </p>
         </div>
         <button
@@ -48,16 +45,15 @@ export const ProductList: React.FC<ProductListProps> = ({
             triggerHaptic('light');
             onAddSampleProduct();
           }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300/60 dark:border-emerald-700/60 hover:bg-emerald-100 transition-colors"
+          className="h-10 px-5 rounded-full text-xs font-medium bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] hover:opacity-90 inline-flex items-center gap-2 transition-all cursor-pointer"
         >
-          <PlusCircle className="w-4 h-4" />
+          <MaterialIcon name="add" className="text-base" />
           <span>Добавить пример для сравнения</span>
         </button>
       </div>
     );
   }
 
-  // Sorted items
   const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === 'price') {
       return a.effectiveTotalPrice - b.effectiveTotalPrice;
@@ -68,7 +64,6 @@ export const ProductList: React.FC<ProductListProps> = ({
     return a.rank - b.rank;
   });
 
-  // Second best price in group for the best deal savings text
   const getSecondBestPrice = (group: string) => {
     const groupItems = products.filter((p) => p.unitGroup === group);
     const sorted = [...groupItems].sort(
@@ -78,24 +73,23 @@ export const ProductList: React.FC<ProductListProps> = ({
   };
 
   return (
-    <div className="space-y-3.5">
-      {/* Header controls for list */}
+    <div className="space-y-3">
+      {/* Header controls */}
       <div className="flex items-center justify-between px-1">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          <span>Сравнение товаров ({products.length})</span>
-        </div>
+        <span className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">
+          Список товаров ({products.length})
+        </span>
 
-        {/* Sort selector */}
         {products.length > 2 && (
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
-            <ArrowUpDown className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-1.5 text-xs text-[var(--md-sys-color-on-surface-variant)]">
+            <MaterialIcon name="sort" className="text-base" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-transparent text-slate-700 dark:text-slate-200 font-bold focus:outline-none cursor-pointer"
+              className="bg-transparent text-[var(--md-sys-color-on-surface)] font-medium focus:outline-none cursor-pointer"
             >
               <option value="rank">По выгоде (от лучшего)</option>
-              <option value="price">По цене за пачку</option>
+              <option value="price">По цене за упаковку</option>
               <option value="name">По названию</option>
             </select>
           </div>

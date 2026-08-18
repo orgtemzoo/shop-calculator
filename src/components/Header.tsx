@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Sun,
-  Moon,
-  Laptop,
-  Share2,
-  Trash2,
-  FolderDown
-} from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 import { triggerHaptic } from '../utils/haptics';
 
 interface HeaderProps {
@@ -35,31 +28,26 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/80 dark:border-slate-800 transition-colors">
-      <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-        {/* Logo & Title */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 ring-1 ring-white/20">
-            <span className="text-xl">🍎</span>
+    <header className="sticky top-0 z-30 bg-[var(--md-sys-color-surface)] border-b border-[var(--md-sys-color-outline-variant)]/60 transition-colors">
+      <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+        {/* App Title & Leading Icon */}
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center">
+            <MaterialIcon name="calculate" className="text-2xl" filled />
           </div>
           <div>
-            <div className="flex items-center gap-1.5">
-              <h1 className="text-lg font-bold text-slate-900 dark:text-white leading-tight tracking-tight">
-                Шоп-Калькулятор
-              </h1>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-300/40 dark:border-emerald-700/40">
-                PRO 2.0
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-              Честное сравнение реальной выгоды
+            <h1 className="text-xl font-medium tracking-normal text-[var(--md-sys-color-on-surface)] leading-tight">
+              Калькулятор выгоды
+            </h1>
+            <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
+              Честное сравнение цен
             </p>
           </div>
         </div>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-1 sm:gap-1.5">
-          {/* Share button */}
+        {/* Action Icon Buttons */}
+        <div className="flex items-center gap-1">
+          {/* Share */}
           <button
             onClick={() => {
               triggerHaptic('light');
@@ -67,9 +55,9 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             disabled={!hasProducts}
             title="Поделиться списком"
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:pointer-events-none rounded-xl transition-all"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 disabled:opacity-30 disabled:pointer-events-none transition-colors"
           >
-            <Share2 className="w-4 h-4" />
+            <MaterialIcon name="share" className="text-xl" />
           </button>
 
           {/* Backup / Restore JSON */}
@@ -78,10 +66,10 @@ export const Header: React.FC<HeaderProps> = ({
               triggerHaptic('light');
               onOpenBackup();
             }}
-            title="Резервная копия и синхронизация"
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all"
+            title="Резервная копия"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors"
           >
-            <FolderDown className="w-4 h-4" />
+            <MaterialIcon name="sync" className="text-xl" />
           </button>
 
           {/* Clear Category */}
@@ -92,22 +80,20 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             disabled={!hasProducts}
             title={`Очистить список: ${activeCategoryName}`}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:pointer-events-none rounded-xl transition-all"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 active:bg-[var(--md-sys-color-error-container)]/50 disabled:opacity-30 disabled:pointer-events-none transition-colors"
           >
-            <Trash2 className="w-4 h-4" />
+            <MaterialIcon name="delete" className="text-xl" />
           </button>
-
-          <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-0.5" />
 
           {/* Theme switcher */}
           <button
             onClick={toggleTheme}
             title={`Тема: ${theme === 'light' ? 'Светлая' : theme === 'dark' ? 'Тёмная' : 'Системная'}`}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors"
           >
-            {theme === 'light' && <Sun className="w-4 h-4 text-amber-500" />}
-            {theme === 'dark' && <Moon className="w-4 h-4 text-indigo-400" />}
-            {theme === 'system' && <Laptop className="w-4 h-4 text-slate-400" />}
+            {theme === 'light' && <MaterialIcon name="light_mode" className="text-xl text-amber-600 dark:text-amber-400" filled />}
+            {theme === 'dark' && <MaterialIcon name="dark_mode" className="text-xl text-indigo-400" filled />}
+            {theme === 'system' && <MaterialIcon name="desktop_windows" className="text-xl" />}
           </button>
         </div>
       </div>

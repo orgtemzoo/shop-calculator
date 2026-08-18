@@ -1,29 +1,130 @@
 @import "tailwindcss";
 
+:root {
+  /* Material 3 Light Theme Tokens */
+  --md-sys-color-primary: #006d44;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #8ef8bb;
+  --md-sys-color-on-primary-container: #002111;
+
+  --md-sys-color-secondary: #4e6355;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #d0e8d7;
+  --md-sys-color-on-secondary-container: #0c1f15;
+
+  --md-sys-color-tertiary: #3b6470;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #bfe9f8;
+  --md-sys-color-on-tertiary-container: #001f27;
+
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+
+  --md-sys-color-surface: #f7fbf3;
+  --md-sys-color-on-surface: #181d19;
+  --md-sys-color-surface-variant: #dce5dd;
+  --md-sys-color-on-surface-variant: #414943;
+
+  --md-sys-color-outline: #717972;
+  --md-sys-color-outline-variant: #c1c9c1;
+
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f1f5ee;
+  --md-sys-color-surface-container: #ebeee8;
+  --md-sys-color-surface-container-high: #e5e9e2;
+  --md-sys-color-surface-container-highest: #dfe3dc;
+
+  --md-sys-color-inverse-surface: #2d322d;
+  --md-sys-color-inverse-on-surface: #eef2eb;
+  --md-sys-color-inverse-primary: #71db9f;
+}
+
+html.dark {
+  /* Material 3 Dark Theme Tokens */
+  --md-sys-color-primary: #71db9f;
+  --md-sys-color-on-primary: #003921;
+  --md-sys-color-primary-container: #005232;
+  --md-sys-color-on-primary-container: #8ef8bb;
+
+  --md-sys-color-secondary: #b5ccbc;
+  --md-sys-color-on-secondary: #213529;
+  --md-sys-color-secondary-container: #374b3e;
+  --md-sys-color-on-secondary-container: #d0e8d7;
+
+  --md-sys-color-tertiary: #a4cddc;
+  --md-sys-color-on-tertiary: #033541;
+  --md-sys-color-tertiary-container: #224c58;
+  --md-sys-color-on-tertiary-container: #bfe9f8;
+
+  --md-sys-color-error: #ffb4ab;
+  --md-sys-color-on-error: #690005;
+  --md-sys-color-error-container: #93000a;
+  --md-sys-color-on-error-container: #ffdad6;
+
+  --md-sys-color-surface: #101511;
+  --md-sys-color-on-surface: #dfe3dc;
+  --md-sys-color-surface-variant: #414943;
+  --md-sys-color-on-surface-variant: #c1c9c1;
+
+  --md-sys-color-outline: #8b938b;
+  --md-sys-color-outline-variant: #414943;
+
+  --md-sys-color-surface-container-lowest: #0b100c;
+  --md-sys-color-surface-container-low: #181d19;
+  --md-sys-color-surface-container: #1c211d;
+  --md-sys-color-surface-container-high: #262c27;
+  --md-sys-color-surface-container-highest: #313732;
+
+  --md-sys-color-inverse-surface: #dfe3dc;
+  --md-sys-color-inverse-on-surface: #2d322d;
+  --md-sys-color-inverse-primary: #006d44;
+}
+
 @layer base {
-  html {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  body {
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     -webkit-tap-highlight-color: transparent;
   }
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Material 3 State Layer overlays */
+.state-layer {
+  position: relative;
+  overflow: hidden;
+}
+
+.state-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.state-layer:hover::after {
+  opacity: 0.08;
+}
+
+.state-layer:focus-visible::after {
+  opacity: 0.12;
+}
+
+.state-layer:active::after {
+  opacity: 0.16;
+}
+
+/* Scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-/* Custom smooth animation keyframes */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

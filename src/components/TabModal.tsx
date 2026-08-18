@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check } from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 import { CategoryTab, UnitType } from '../types';
 import { triggerHaptic } from '../utils/haptics';
 
@@ -53,29 +53,29 @@ export const TabModal: React.FC<TabModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-50">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl max-w-md w-full overflow-hidden animate-in zoom-in-95">
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in-50">
+      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] border border-[var(--md-sys-color-outline-variant)]/60 shadow-2xl max-w-md w-full p-6 space-y-4 animate-in zoom-in-95">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center text-xl">
               {emoji}
             </div>
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-[var(--md-sys-color-on-surface)]">
               {editingTab ? 'Редактировать категорию' : 'Новая категория'}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg transition-colors"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8"
           >
-            <X className="w-5 h-5" />
+            <MaterialIcon name="close" className="text-xl" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Название категории <span className="text-rose-500">*</span>
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
+              Название категории <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
             <input
               type="text"
@@ -83,16 +83,16 @@ export const TabModal: React.FC<TabModalProps> = ({
               autoFocus
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Например: Кофе и чай, Стиральный порошок..."
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500"
+              placeholder="Например: Кофе и чай"
+              className="w-full px-3.5 py-2.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-sm text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Иконка / Эмодзи:
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5">
+              Иконка категории:
             </label>
-            <div className="flex flex-wrap gap-1.5 p-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl max-h-32 overflow-y-auto">
+            <div className="flex flex-wrap gap-1.5 p-2 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-xl max-h-32 overflow-y-auto">
               {EMOJI_PRESETS.map((em) => (
                 <button
                   key={em}
@@ -103,8 +103,8 @@ export const TabModal: React.FC<TabModalProps> = ({
                   }}
                   className={`w-9 h-9 rounded-lg text-lg flex items-center justify-center transition-all ${
                     emoji === em
-                      ? 'bg-emerald-600 text-white shadow-sm scale-110'
-                      : 'hover:bg-slate-200 dark:hover:bg-slate-700'
+                      ? 'bg-[var(--md-sys-color-secondary-container)] scale-110'
+                      : 'hover:bg-[var(--md-sys-color-surface-container-high)]'
                   }`}
                 >
                   {em}
@@ -114,13 +114,13 @@ export const TabModal: React.FC<TabModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
               Единица измерения по умолчанию:
             </label>
             <select
               value={defaultUnit}
               onChange={(e) => setDefaultUnit(e.target.value as UnitType)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 cursor-pointer"
+              className="w-full px-3.5 py-2.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)] cursor-pointer"
             >
               <option value="g">Граммы (г) / Килограммы (кг)</option>
               <option value="ml">Миллилитры (мл) / Литры (л)</option>
@@ -133,20 +133,19 @@ export const TabModal: React.FC<TabModalProps> = ({
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2.5 pt-2">
+          <div className="flex items-center justify-end gap-2 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="h-10 px-4 rounded-full text-xs font-medium text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/8"
             >
               Отмена
             </button>
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] shadow-md shadow-emerald-600/25 flex items-center gap-2 cursor-pointer"
+              className="h-10 px-6 rounded-full text-xs font-medium text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 transition-all cursor-pointer"
             >
-              <Check className="w-4 h-4" />
-              <span>Сохранить</span>
+              Сохранить
             </button>
           </div>
         </form>

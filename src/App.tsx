@@ -68,7 +68,7 @@ export const App: React.FC = () => {
       // Update meta theme-color for iOS / Android mobile chrome
       const metaThemeColor = document.querySelector('meta[name="theme-color"]');
       if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', isDark ? '#0f172a' : '#0284c7');
+        metaThemeColor.setAttribute('content', isDark ? '#101511' : '#006d44');
       }
     };
 
@@ -309,7 +309,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans antialiased selection:bg-emerald-500 selection:text-white transition-colors">
+    <div className="min-h-screen bg-[var(--md-sys-color-surface)] text-[var(--md-sys-color-on-surface)] flex flex-col font-sans antialiased selection:bg-[var(--md-sys-color-primary-container)] selection:text-[var(--md-sys-color-on-primary-container)] transition-colors">
       {/* Top Navigation */}
       <Header
         theme={appState.theme}
@@ -364,9 +364,9 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-400 dark:text-slate-500 space-y-1">
-        <p className="font-semibold text-slate-500 dark:text-slate-400">
-          🍎 Шоп-Калькулятор Выгоды • PWA Офлайн
+      <footer className="mt-auto border-t border-[var(--md-sys-color-outline-variant)]/40 py-6 text-center text-xs text-[var(--md-sys-color-on-surface-variant)] space-y-1">
+        <p className="font-medium text-[var(--md-sys-color-on-surface)]">
+          Шоп-Калькулятор Выгоды • Material 3
         </p>
         <p>Сравнивайте цены за 1 кг, 1 литр и 1 штуку прямо в супермаркете</p>
       </footer>

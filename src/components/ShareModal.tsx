@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  X,
-  Check,
-  Share2,
-  Link2,
-  MessageSquareShare
-} from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 import { CategoryTab, CalculatedProduct } from '../types';
 import { UNITS_CONFIG, formatMoney, formatQuantity } from '../utils/calculator';
 import { serializeTabToHash } from '../utils/storage';
@@ -31,7 +25,6 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Generate pretty messenger text
   const generateTextReport = () => {
     if (calculatedProducts.length === 0) return '';
 
@@ -90,57 +83,56 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-50">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in-50">
+      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] border border-[var(--md-sys-color-outline-variant)]/60 shadow-2xl max-w-lg w-full p-6 space-y-4 animate-in zoom-in-95">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-              <Share2 className="w-4 h-4" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center">
+              <MaterialIcon name="share" className="text-xl" />
             </div>
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-              Поделиться списком сравнения
+            <h3 className="text-lg font-semibold text-[var(--md-sys-color-on-surface)]">
+              Поделиться списком
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg transition-colors"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8"
           >
-            <X className="w-5 h-5" />
+            <MaterialIcon name="close" className="text-xl" />
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-4 sm:p-5 space-y-4">
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
-              Текстовый отчет для Telegram / WhatsApp:
-            </label>
-            <textarea
-              readOnly
-              rows={8}
-              value={reportText}
-              className="w-full p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-mono text-slate-800 dark:text-slate-200 focus:outline-none resize-none select-all"
-            />
-          </div>
+        {/* Text Area */}
+        <div className="space-y-1.5">
+          <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)]">
+            Текст для Telegram / WhatsApp:
+          </label>
+          <textarea
+            readOnly
+            rows={7}
+            value={reportText}
+            className="w-full p-3.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-mono text-[var(--md-sys-color-on-surface)] focus:outline-none resize-none select-all"
+          />
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <button
-              onClick={handleCopyText}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 text-white hover:bg-emerald-500 active:scale-[0.99] shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
-            >
-              {copiedText ? <Check className="w-4 h-4" /> : <MessageSquareShare className="w-4 h-4" />}
-              <span>{copiedText ? 'Скопировано!' : 'Копировать для чата'}</span>
-            </button>
+        {/* Actions */}
+        <div className="flex flex-col sm:flex-row items-center justify-end gap-2 pt-2">
+          <button
+            onClick={handleCopyLink}
+            className="w-full sm:w-auto h-10 px-5 rounded-full text-xs font-medium text-[var(--md-sys-color-primary)] border border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-primary)]/8 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <MaterialIcon name={copiedLink ? 'check' : 'link'} className="text-base" />
+            <span>{copiedLink ? 'Ссылка скопирована' : 'Копировать ссылку'}</span>
+          </button>
 
-            <button
-              onClick={handleCopyLink}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.99] transition-all cursor-pointer"
-            >
-              {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Link2 className="w-4 h-4 text-sky-500" />}
-              <span>{copiedLink ? 'Ссылка скопирована!' : 'Копировать ссылку'}</span>
-            </button>
-          </div>
+          <button
+            onClick={handleCopyText}
+            className="w-full sm:w-auto h-10 px-6 rounded-full text-xs font-medium text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+          >
+            <MaterialIcon name={copiedText ? 'check' : 'content_copy'} className="text-base" />
+            <span>{copiedText ? 'Текст скопирован' : 'Копировать текст'}</span>
+          </button>
         </div>
       </div>
     </div>

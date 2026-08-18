@@ -14,8 +14,8 @@ export default defineConfig({
         name: 'Калькулятор выгоды — Сравнение цен',
         short_name: 'Выгода',
         description: 'Умный калькулятор выгоды и честного сравнения цен на продукты, бытовую химию и штучные товары в магазине.',
-        theme_color: '#0284c7',
-        background_color: '#0f172a',
+        theme_color: '#006d44',
+        background_color: '#101511',
         display: 'standalone',
         orientation: 'portrait-primary',
         start_url: './',
@@ -40,9 +40,15 @@ export default defineConfig({
       }
     })
   ],
-  base: './', // for smooth GitHub Pages deployment & relative paths
+  base: './',
+  optimizeDeps: {
+    entries: ['src/**/*.{ts,tsx}']
+  },
   server: {
-    port: 5173,
-    host: true
+    port: 3600,
+    host: true,
+    watch: {
+      ignored: ['**/docs/**', '**/.wrangler/**', '**/.git/**']
+    }
   }
 });

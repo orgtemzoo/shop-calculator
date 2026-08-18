@@ -35,24 +35,24 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-30 bg-[var(--md-sys-color-surface)] border-b border-[var(--md-sys-color-outline-variant)]/50 transition-colors">
-      <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-2">
         {/* App Title & Leading Icon */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center shrink-0">
-            <MaterialIcon name="calculate" className="text-2xl" filled />
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="w-9 h-9 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] hidden sm:flex items-center justify-center shrink-0">
+            <MaterialIcon name="calculate" className="w-5 h-5 text-[var(--md-sys-color-on-primary-container)]" filled />
           </div>
-          <div>
-            <h1 className="text-lg sm:text-xl font-medium tracking-normal text-[var(--md-sys-color-on-surface)] leading-tight">
+          <div className="min-w-0">
+            <h1 className="text-sm sm:text-base md:text-lg font-bold tracking-tight text-[var(--md-sys-color-on-surface)] whitespace-nowrap">
               Калькулятор выгоды
             </h1>
-            <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
+            <p className="text-[11px] sm:text-xs text-[var(--md-sys-color-on-surface-variant)] truncate hidden md:block">
               Сравнение стоимости за единицу
             </p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
           {/* Currency Switcher */}
           <button
             onClick={() => {
@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
               onOpenCurrency();
             }}
             title={`Валюта: ${currencySymbol}`}
-            className="h-9 pl-2 pr-2.5 rounded-full flex items-center gap-1.5 text-xs font-bold bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/60 cursor-pointer transition-colors"
+            className="h-8 sm:h-9 pl-2 pr-2.5 rounded-full flex items-center gap-1.5 text-xs font-bold bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/60 cursor-pointer transition-colors"
           >
             {activeFlag && (
               <img
@@ -73,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
               />
             )}
             <span>{currencySymbol}</span>
-            <MaterialIcon name="arrow_drop_down" className="text-base text-[var(--md-sys-color-on-surface-variant)] -mr-1" />
+            <MaterialIcon name="arrow_drop_down" className="w-4 h-4 text-[var(--md-sys-color-on-surface-variant)] -mr-1" />
           </button>
 
           {/* Share */}
@@ -84,9 +84,9 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             disabled={!hasProducts}
             title="Поделиться списком"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
           >
-            <MaterialIcon name="share" className="text-xl" />
+            <MaterialIcon name="share" className="w-5 h-5" />
           </button>
 
           {/* Backup / Restore JSON */}
@@ -96,9 +96,9 @@ export const Header: React.FC<HeaderProps> = ({
               onOpenBackup();
             }}
             title="Резервное копирование"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors cursor-pointer"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors cursor-pointer"
           >
-            <MaterialIcon name="sync" className="text-xl" />
+            <MaterialIcon name="sync" className="w-5 h-5" />
           </button>
 
           {/* Clear Category */}
@@ -109,20 +109,20 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             disabled={!hasProducts}
             title={`Очистить: ${activeCategoryName}`}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 active:bg-[var(--md-sys-color-error-container)]/50 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 active:bg-[var(--md-sys-color-error-container)]/50 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
           >
-            <MaterialIcon name="delete" className="text-xl" />
+            <MaterialIcon name="delete" className="w-5 h-5" />
           </button>
 
           {/* Theme switcher */}
           <button
             onClick={toggleTheme}
             title={`Тема: ${theme === 'light' ? 'Светлая' : theme === 'dark' ? 'Тёмная' : 'Системная'}`}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors cursor-pointer"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors cursor-pointer"
           >
-            {theme === 'light' && <MaterialIcon name="light_mode" className="text-xl text-amber-600 dark:text-amber-400" filled />}
-            {theme === 'dark' && <MaterialIcon name="dark_mode" className="text-xl text-indigo-400" filled />}
-            {theme === 'system' && <MaterialIcon name="desktop_windows" className="text-xl" />}
+            {theme === 'light' && <MaterialIcon name="light_mode" className="w-5 h-5 text-amber-600 dark:text-amber-400" filled />}
+            {theme === 'dark' && <MaterialIcon name="dark_mode" className="w-5 h-5 text-indigo-400" filled />}
+            {theme === 'system' && <MaterialIcon name="desktop_windows" className="w-5 h-5" />}
           </button>
         </div>
       </div>

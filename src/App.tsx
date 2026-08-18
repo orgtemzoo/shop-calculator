@@ -363,14 +363,6 @@ export const App: React.FC = () => {
         />
       </main>
 
-      {/* Footer */}
-      <footer className="mt-auto border-t border-[var(--md-sys-color-outline-variant)]/40 py-6 text-center text-xs text-[var(--md-sys-color-on-surface-variant)] space-y-1">
-        <p className="font-medium text-[var(--md-sys-color-on-surface)]">
-          Шоп-Калькулятор Выгоды • Material 3
-        </p>
-        <p>Сравнивайте цены за 1 кг, 1 литр и 1 штуку прямо в супермаркете</p>
-      </footer>
-
       {/* Modals & Dialogs */}
       <ShareModal
         tab={activeTab}
@@ -383,11 +375,13 @@ export const App: React.FC = () => {
       <TabModal
         isOpen={isTabModalOpen}
         editingTab={editingTab}
+        canDelete={appState.tabs.length > 1}
         onClose={() => {
           setIsTabModalOpen(false);
           setEditingTab(null);
         }}
         onSaveTab={handleSaveTab}
+        onDeleteTab={handleDeleteTab}
       />
 
       <JsonModal

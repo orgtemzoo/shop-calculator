@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { MaterialIcon } from './MaterialIcon';
+import { M3UnitSelector } from './M3UnitSelector';
 import {
   Product,
   UnitType,
@@ -285,33 +286,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 />
               </div>
 
-              {/* M3 Outlined Select */}
-              <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)]">
-                <select
-                  value={unit}
-                  onChange={(e) => setUnit(e.target.value as UnitType)}
-                  className="h-full pl-3.5 pr-8 bg-transparent text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none appearance-none cursor-pointer"
-                >
-                  <optgroup label="Масса (Вес)">
-                    <option value="g">г</option>
-                    <option value="kg">кг</option>
-                  </optgroup>
-                  <optgroup label="Объём">
-                    <option value="ml">мл</option>
-                    <option value="l">л</option>
-                  </optgroup>
-                  <optgroup label="Штучные товары">
-                    <option value="pcs">шт</option>
-                    <option value="roll">рул</option>
-                    <option value="caps">капс</option>
-                    <option value="tablet">табл</option>
-                    <option value="pack">пак</option>
-                    <option value="portion">порц</option>
-                    <option value="meter">м</option>
-                  </optgroup>
-                </select>
-                <MaterialIcon name="arrow_drop_down" className="absolute right-2 text-xl text-[var(--md-sys-color-on-surface-variant)] pointer-events-none" />
-              </div>
+              {/* M3 Custom Unit Selector */}
+              <M3UnitSelector value={unit} onChange={setUnit} />
             </div>
           </div>
         </div>

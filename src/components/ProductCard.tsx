@@ -45,20 +45,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {/* Top row: Rank, Best Deal Badge & Name */}
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1 min-w-0 flex-1">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface-variant)]">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="h-6 px-2.5 rounded-full text-xs font-bold inline-flex items-center justify-center bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface-variant)]">
               #{product.rank}
             </span>
 
             {isBest && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] text-xs font-semibold">
+              <span className="h-6 px-2.5 rounded-full text-xs font-semibold inline-flex items-center gap-1 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)]">
                 <MaterialIcon name="emoji_events" className="text-sm" filled />
                 <span>Самый выгодный</span>
               </span>
             )}
 
             {product.discountSummaryText && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] text-xs font-medium">
+              <span className="h-6 px-2.5 rounded-full text-xs font-medium inline-flex items-center gap-1 bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]">
                 <MaterialIcon name="sell" className="text-xs" />
                 <span>{product.discountSummaryText}</span>
               </span>

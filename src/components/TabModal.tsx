@@ -6,8 +6,10 @@ import { triggerHaptic } from '../utils/haptics';
 interface TabModalProps {
   isOpen: boolean;
   editingTab: CategoryTab | null;
+  canDelete?: boolean;
   onClose: () => void;
   onSaveTab: (tabData: { title: string; emoji: string; defaultUnit: UnitType }) => void;
+  onDeleteTab?: (tabId: string) => void;
 }
 
 const EMOJI_PRESETS = [
@@ -18,8 +20,10 @@ const EMOJI_PRESETS = [
 export const TabModal: React.FC<TabModalProps> = ({
   isOpen,
   editingTab,
+  canDelete = false,
   onClose,
-  onSaveTab
+  onSaveTab,
+  onDeleteTab
 }) => {
   const [title, setTitle] = useState('');
   const [emoji, setEmoji] = useState('🛒');
@@ -50,6 +54,14 @@ export const TabModal: React.FC<TabModalProps> = ({
       defaultUnit
     });
     onClose();
+  };
+
+  const handleDelete = () => {
+    if (editingTab && onDeleteTab) {
+      triggerHaptic('warning');
+      onDeleteTab(editingTab.id);
+      onClose();
+    }
   };
 
   return (
@@ -90,9 +102,9 @@ export const TabModal: React.FC<TabModalProps> = ({
 
           <div>
             <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5">
-              Иконка категории:
+              Иконка:
             </label>
-            <div className="flex flex-wrap gap-1.5 p-2 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-xl max-h-32 overflow-y-auto">
+            <div className="flex flex-wrap gap-1.5 p-2 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-xl max-h-28 overflow-y-auto">
               {EMOJI_PRESETS.map((em) => (
                 <button
                   key={em}
@@ -101,7 +113,7 @@ export const TabModal: React.FC<TabModalProps> = ({
                     triggerHaptic('light');
                     setEmoji(em);
                   }}
-                  className={`w-9 h-9 rounded-lg text-lg flex items-center justify-center transition-all ${
+                  className={`w-9 h-9 rounded-lg text-lg flex items-center justify-center transition-all cursor-pointer ${
                     emoji === em
                       ? 'bg-[var(--md-sys-color-secondary-container)] scale-110'
                       : 'hover:bg-[var(--md-sys-color-surface-container-high)]'
@@ -133,20 +145,33 @@ export const TabModal: React.FC<TabModalProps> = ({
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="h-10 px-4 rounded-full text-xs font-medium text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/8"
-            >
-              Отмена
-            </button>
-            <button
-              type="submit"
-              className="h-10 px-6 rounded-full text-xs font-medium text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 transition-all cursor-pointer"
-            >
-              Сохранить
-            </button>
+          <div className="flex items-center justify-between pt-2">
+            {editingTab && canDelete ? (
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="h-10 px-3 rounded-full text-xs font-medium text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <MaterialIcon name="delete" className="text-base" />
+                <span>Удалить</span>
+              </button>
+            ) : <div />}
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="h-10 px-4 rounded-full text-xs font-medium text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/8 cursor-pointer"
+              >
+                Отмена
+              </button>
+              <button
+                type="submit"
+                className="h-10 px-6 rounded-full text-xs font-medium text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 transition-all cursor-pointer"
+              >
+                Сохранить
+              </button>
+            </div>
           </div>
         </form>
       </div>

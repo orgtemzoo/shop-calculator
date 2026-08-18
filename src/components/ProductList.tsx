@@ -36,7 +36,7 @@ export const ProductList: React.FC<ProductListProps> = ({
             В категории «{categoryTitle}» пока нет товаров
           </h3>
           <p className="text-xs text-[var(--md-sys-color-on-surface-variant)] leading-relaxed">
-            Добавьте 2 или более товара выше, и калькулятор рассчитает цену за стандартную единицу и покажет выгоду.
+            Добавьте 2 или более товара выше для сравнения стоимости за единицу веса или объёма.
           </p>
         </div>
         <button
@@ -48,7 +48,7 @@ export const ProductList: React.FC<ProductListProps> = ({
           className="h-10 px-5 rounded-full text-xs font-medium bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] hover:opacity-90 inline-flex items-center gap-2 transition-all cursor-pointer"
         >
           <MaterialIcon name="add" className="text-base" />
-          <span>Добавить пример для сравнения</span>
+          <span>Добавить пример</span>
         </button>
       </div>
     );
@@ -81,17 +81,18 @@ export const ProductList: React.FC<ProductListProps> = ({
         </span>
 
         {products.length > 2 && (
-          <div className="flex items-center gap-1.5 text-xs text-[var(--md-sys-color-on-surface-variant)]">
-            <MaterialIcon name="sort" className="text-base" />
+          <div className="relative flex items-center bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-full h-8 px-2.5">
+            <MaterialIcon name="sort" className="text-sm text-[var(--md-sys-color-on-surface-variant)] mr-1" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-transparent text-[var(--md-sys-color-on-surface)] font-medium focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs text-[var(--md-sys-color-on-surface)] font-medium focus:outline-none appearance-none pr-4 cursor-pointer"
             >
-              <option value="rank">По выгоде (от лучшего)</option>
-              <option value="price">По цене за упаковку</option>
+              <option value="rank">По выгоде</option>
+              <option value="price">По цене пачки</option>
               <option value="name">По названию</option>
             </select>
+            <MaterialIcon name="arrow_drop_down" className="absolute right-1 text-base text-[var(--md-sys-color-on-surface-variant)] pointer-events-none" />
           </div>
         )}
       </div>

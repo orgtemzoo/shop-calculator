@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Material 3 Light Theme Tokens */
+  /* Material 3 Light Theme Palette */
   --md-sys-color-primary: #006d44;
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #8ef8bb;
@@ -42,7 +42,7 @@
 }
 
 html.dark {
-  /* Material 3 Dark Theme Tokens */
+  /* Material 3 Dark Theme Palette */
   --md-sys-color-primary: #71db9f;
   --md-sys-color-on-primary: #003921;
   --md-sys-color-primary-container: #005232;
@@ -83,41 +83,38 @@ html.dark {
 }
 
 @layer base {
+  * {
+    border-color: var(--md-sys-color-outline-variant);
+  }
+
   body {
     background-color: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
     font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     -webkit-tap-highlight-color: transparent;
   }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 }
 
-/* Material 3 State Layer overlays */
-.state-layer {
-  position: relative;
-  overflow: hidden;
+/* Material 3 Elevation shadows */
+.m3-elevation-1 {
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
 }
 
-.state-layer::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: currentColor;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
-  border-radius: inherit;
+.m3-elevation-2 {
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
 }
 
-.state-layer:hover::after {
-  opacity: 0.08;
-}
-
-.state-layer:focus-visible::after {
-  opacity: 0.12;
-}
-
-.state-layer:active::after {
-  opacity: 0.16;
+.m3-elevation-3 {
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.08), 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
 /* Scrollbar utility */

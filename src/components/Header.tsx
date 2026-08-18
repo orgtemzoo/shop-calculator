@@ -28,19 +28,19 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-[var(--md-sys-color-surface)] border-b border-[var(--md-sys-color-outline-variant)]/60 transition-colors">
+    <header className="sticky top-0 z-30 bg-[var(--md-sys-color-surface)] border-b border-[var(--md-sys-color-outline-variant)]/50 transition-colors">
       <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
         {/* App Title & Leading Icon */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center shrink-0">
             <MaterialIcon name="calculate" className="text-2xl" filled />
           </div>
           <div>
-            <h1 className="text-xl font-medium tracking-normal text-[var(--md-sys-color-on-surface)] leading-tight">
+            <h1 className="text-lg sm:text-xl font-medium tracking-normal text-[var(--md-sys-color-on-surface)] leading-tight">
               Калькулятор выгоды
             </h1>
             <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
-              Честное сравнение цен
+              Сравнение стоимости за единицу
             </p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
               triggerHaptic('light');
               onOpenBackup();
             }}
-            title="Резервная копия"
+            title="Резервное копирование"
             className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 active:bg-[var(--md-sys-color-on-surface)]/12 transition-colors"
           >
             <MaterialIcon name="sync" className="text-xl" />
@@ -79,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClearCategory();
             }}
             disabled={!hasProducts}
-            title={`Очистить список: ${activeCategoryName}`}
+            title={`Очистить: ${activeCategoryName}`}
             className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 active:bg-[var(--md-sys-color-error-container)]/50 disabled:opacity-30 disabled:pointer-events-none transition-colors"
           >
             <MaterialIcon name="delete" className="text-xl" />

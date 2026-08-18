@@ -113,14 +113,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             ).toFixed(1);
             comparisonBadge = {
               type: 'best',
-              text: `🏆 Станет лучшей ценой (-${diffPct}% от текущего лидера)`
+              text: `Самая выгодная цена в списке (-${diffPct}%)`
             };
           } else if (
             Math.abs(calculated.pricePerStandardUnit - bestExisting.pricePerStandardUnit) < 0.01
           ) {
             comparisonBadge = {
               type: 'equal',
-              text: '✨ Равна лучшей цене в списке'
+              text: 'Равна лучшей цене в списке'
             };
           } else {
             const diffPct = (
@@ -133,7 +133,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             ).toFixed(2);
             comparisonBadge = {
               type: 'worse',
-              text: `+${diffPct}% к лучшей цене (+${diffRub} ₽ / ${currentUnitInfo.standardUnit})`
+              text: `+${diffPct}% к лидеру (+${diffRub} ₽ / ${currentUnitInfo.standardUnit})`
             };
           }
         }
@@ -216,23 +216,23 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         </div>
 
         {/* M3 Outlined Text Field: Product Name */}
-        <div className="relative">
+        <div>
           <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
             Название товара
           </label>
-          <div className="relative flex items-center bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
+          <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Например: Молоко Простоквашино"
-              className="w-full px-3.5 py-2.5 bg-transparent text-sm text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
+              className="w-full h-full px-4 bg-transparent text-sm text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
             />
             {name && (
               <button
                 type="button"
                 onClick={() => setName('')}
-                className="p-2 text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)]"
+                className="w-10 h-10 mr-1 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8"
               >
                 <MaterialIcon name="close" className="text-lg" />
               </button>
@@ -245,20 +245,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           {/* Price */}
           <div>
             <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
-              Цена ценника <span className="text-[var(--md-sys-color-error)]">*</span>
+              Цена <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
-            <div className="relative flex items-center bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
+            <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
               <input
                 type="number"
+                inputMode="decimal"
                 step="0.01"
                 min="0.01"
                 required
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="100.00"
-                className="w-full pl-3.5 pr-8 py-2.5 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
+                className="w-full h-full pl-4 pr-9 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
               />
-              <span className="absolute right-3.5 text-sm font-bold text-[var(--md-sys-color-on-surface-variant)] pointer-events-none">
+              <span className="absolute right-4 text-sm font-semibold text-[var(--md-sys-color-on-surface-variant)] pointer-events-none">
                 ₽
               </span>
             </div>
@@ -267,52 +268,57 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           {/* Quantity & Unit */}
           <div>
             <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
-              Вес / Объём / Количество <span className="text-[var(--md-sys-color-error)]">*</span>
+              Вес / объём / количество <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
             <div className="flex gap-2">
-              <div className="flex-1 relative flex items-center bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
+              <div className="flex-1 relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
                 <input
                   type="number"
+                  inputMode="decimal"
                   step="any"
                   min="0.001"
                   required
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="900"
-                  className="w-full px-3.5 py-2.5 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
+                  className="w-full h-full px-4 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
                 />
               </div>
 
-              <select
-                value={unit}
-                onChange={(e) => setUnit(e.target.value as UnitType)}
-                className="px-3 py-2.5 bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline)] rounded-xl text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)] cursor-pointer"
-              >
-                <optgroup label="Масса (Вес)">
-                  <option value="g">г (граммы)</option>
-                  <option value="kg">кг (килограммы)</option>
-                </optgroup>
-                <optgroup label="Объём (Жидкости)">
-                  <option value="ml">мл (миллилитры)</option>
-                  <option value="l">л (литры)</option>
-                </optgroup>
-                <optgroup label="Штучные товары">
-                  <option value="pcs">шт (штуки)</option>
-                  <option value="roll">рул (рулоны)</option>
-                  <option value="caps">капс (капсулы)</option>
-                  <option value="tablet">табл (таблетки)</option>
-                  <option value="pack">пак (пакетики)</option>
-                  <option value="portion">порц (порции)</option>
-                  <option value="meter">м (метры)</option>
-                </optgroup>
-              </select>
+              {/* M3 Outlined Select */}
+              <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-1 focus-within:ring-[var(--md-sys-color-primary)]">
+                <select
+                  value={unit}
+                  onChange={(e) => setUnit(e.target.value as UnitType)}
+                  className="h-full pl-3.5 pr-8 bg-transparent text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none appearance-none cursor-pointer"
+                >
+                  <optgroup label="Масса (Вес)">
+                    <option value="g">г</option>
+                    <option value="kg">кг</option>
+                  </optgroup>
+                  <optgroup label="Объём">
+                    <option value="ml">мл</option>
+                    <option value="l">л</option>
+                  </optgroup>
+                  <optgroup label="Штучные товары">
+                    <option value="pcs">шт</option>
+                    <option value="roll">рул</option>
+                    <option value="caps">капс</option>
+                    <option value="tablet">табл</option>
+                    <option value="pack">пак</option>
+                    <option value="portion">порц</option>
+                    <option value="meter">м</option>
+                  </optgroup>
+                </select>
+                <MaterialIcon name="arrow_drop_down" className="absolute right-2 text-xl text-[var(--md-sys-color-on-surface-variant)] pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
 
         {/* M3 Suggestion Chips (Presets) */}
         {currentGroupPresets.length > 0 && (
-          <div className="pt-1">
+          <div>
             <span className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5">
               Популярная фасовка:
             </span>
@@ -341,21 +347,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         )}
 
         {/* M3 Filter Chips: Multipack & Promo toggles */}
-        <div className="flex flex-wrap items-center gap-2 pt-1">
+        <div className="flex flex-wrap items-center gap-2 pt-0.5">
           <button
             type="button"
             onClick={() => {
               triggerHaptic('light');
               setIsMultiPack(!isMultiPack);
             }}
-            className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-all ${
+            className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
               isMultiPack
-                ? 'bg-[var(--md-sys-color-tertiary-container)] text-[var(--md-sys-color-on-tertiary-container)] font-semibold'
+                ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
                 : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
             }`}
           >
             <MaterialIcon name={isMultiPack ? 'check_box' : 'check_box_outline_blank'} className="text-base" />
-            <span>Набор / Мультипак</span>
+            <span>Мультипак</span>
           </button>
 
           <button
@@ -364,17 +370,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               triggerHaptic('light');
               setShowPromoOptions(!showPromoOptions);
             }}
-            className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-all ${
+            className={`h-8 px-3 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
               discountType !== 'none' || showPromoOptions
                 ? 'bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] font-semibold'
                 : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
             }`}
           >
-            <MaterialIcon name="local_offer" className="text-base" />
+            <MaterialIcon name="sell" className="text-base" />
             <span>
               {discountType !== 'none'
-                ? `Акция: ${DISCOUNT_LABELS[discountType]}`
-                : 'Скидка или акция (1+1, карта...)'}
+                ? `${DISCOUNT_LABELS[discountType]}`
+                : 'Скидка / акция'}
             </span>
           </button>
         </div>
@@ -388,6 +394,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             <div className="flex items-center gap-3">
               <input
                 type="number"
+                inputMode="numeric"
                 min="2"
                 max="1000"
                 value={packCount}
@@ -395,7 +402,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 className="w-24 px-3 py-1.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-lg text-sm font-semibold text-[var(--md-sys-color-on-surface)]"
               />
               <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
-                Итого в наборе:{' '}
+                Итого:{' '}
                 <strong>
                   {formatQuantity(
                     parseFloat(quantity) || 0,
@@ -451,7 +458,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       triggerHaptic('light');
                       setDiscountType(type);
                     }}
-                    className={`h-8 px-2.5 rounded-lg text-xs font-medium text-center transition-all ${
+                    className={`h-8 px-2.5 rounded-lg text-xs font-medium text-center transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
                         : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
@@ -466,10 +473,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             {discountType === 'percent' && (
               <div className="flex items-center gap-2 pt-1">
                 <span className="text-xs font-medium text-[var(--md-sys-color-on-surface)]">
-                  Размер скидки:
+                  Скидка:
                 </span>
                 <input
                   type="number"
+                  inputMode="numeric"
                   min="1"
                   max="99"
                   value={discountValue}
@@ -488,6 +496,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </span>
                 <input
                   type="number"
+                  inputMode="decimal"
                   step="0.01"
                   min="0.01"
                   value={discountValue}

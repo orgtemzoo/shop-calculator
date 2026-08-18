@@ -39,6 +39,12 @@
   --md-sys-color-inverse-surface: #2d322d;
   --md-sys-color-inverse-on-surface: #eef2eb;
   --md-sys-color-inverse-primary: #71db9f;
+
+  /* M3 Motion */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
+
+  color-scheme: light;
 }
 
 html.dark {
@@ -80,11 +86,15 @@ html.dark {
   --md-sys-color-inverse-surface: #dfe3dc;
   --md-sys-color-inverse-on-surface: #2d322d;
   --md-sys-color-inverse-primary: #006d44;
+
+  color-scheme: dark;
 }
 
 @layer base {
   * {
     border-color: var(--md-sys-color-outline-variant);
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-sys-color-outline-variant) transparent;
   }
 
   body {
@@ -104,6 +114,26 @@ html.dark {
   }
 }
 
+/* ---------- Material 3 Custom Scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--md-sys-color-outline-variant);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--md-sys-color-outline);
+}
+
 /* Material 3 Elevation shadows */
 .m3-elevation-1 {
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
@@ -117,7 +147,7 @@ html.dark {
   box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.08), 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
-/* Scrollbar utility */
+/* Scrollbar utility for hidden horizontal scrolling */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

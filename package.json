@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "preview:cf": "wrangler dev --ip 0.0.0.0 --port 3600",
     "test": "vitest run"
   },
   "repository": {
@@ -42,6 +43,7 @@
     "typescript": "^5.7.3",
     "vite": "^6.1.0",
     "vite-plugin-pwa": "^0.21.1",
-    "vitest": "^3.0.5"
+    "vitest": "^3.0.5",
+    "wrangler": "^4.123.0"
   }
 }

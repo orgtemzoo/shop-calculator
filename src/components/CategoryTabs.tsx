@@ -21,8 +21,8 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
   onEditTab
 }) => {
   return (
-    <div className="bg-[var(--md-sys-color-surface-container-low)] border-b border-[var(--md-sys-color-outline-variant)]/40 py-2.5">
-      <div className="max-w-4xl mx-auto px-4 flex items-center gap-2 overflow-x-auto no-scrollbar">
+    <div className="bg-[var(--md-sys-color-surface)] py-2">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
         {tabs.map((tab) => {
           const isActive = tab.id === activeTabId;
           const productCount = tab.products.length;
@@ -33,7 +33,7 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
               {isActive && (
                 <motion.div
                   layoutId="active-category-pill"
-                  className="absolute inset-0 rounded-full bg-[var(--md-sys-color-secondary-container)]"
+                  className="absolute inset-0 rounded-full bg-[var(--md-sys-color-secondary-container)] shadow-xs"
                   transition={{
                     type: 'spring',
                     stiffness: 380,
@@ -83,7 +83,7 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
                   title="Настройки категории"
                   className="relative z-10 w-7 h-7 -ml-2 mr-2 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-secondary-container)]/80 hover:bg-[var(--md-sys-color-on-secondary-container)]/20 transition-colors cursor-pointer"
                 >
-                  <MaterialIcon name="tune" className="text-base" />
+                  <MaterialIcon name="tune" className="w-4 h-4" />
                 </button>
               )}
             </div>
@@ -97,9 +97,9 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
             triggerHaptic('medium');
             onAddTab();
           }}
-          className="shrink-0 h-10 px-3.5 rounded-full text-sm font-medium bg-transparent border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/8 flex items-center gap-1.5 transition-colors cursor-pointer"
+          className="shrink-0 h-10 px-4 rounded-full text-sm font-medium bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-surface-container-highest)] flex items-center gap-1.5 transition-colors cursor-pointer"
         >
-          <MaterialIcon name="add" className="text-lg" />
+          <MaterialIcon name="add" className="w-4 h-4" />
           <span>Категория</span>
         </button>
       </div>

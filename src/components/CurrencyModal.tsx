@@ -66,7 +66,7 @@ export const CurrencyModal: React.FC<CurrencyModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in-50">
-      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] border border-[var(--md-sys-color-outline-variant)]/60 shadow-2xl max-w-sm w-full p-6 space-y-4 animate-in zoom-in-95">
+      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] shadow-2xl max-w-sm w-full p-6 space-y-4 animate-in zoom-in-95">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -91,26 +91,26 @@ export const CurrencyModal: React.FC<CurrencyModalProps> = ({
             onClick={onClose}
             className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 cursor-pointer"
           >
-            <MaterialIcon name="close" className="text-xl" />
+            <MaterialIcon name="close" className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Search input */}
-        <div className="relative flex items-center h-11 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-full px-4 focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
-          <MaterialIcon name="search" className="text-lg text-[var(--md-sys-color-on-surface-variant)] mr-2" />
+        {/* Search input (M3 Filled / Capsule) */}
+        <div className="relative flex items-center h-11 bg-[var(--md-sys-color-surface-container-highest)]/70 rounded-full px-4 focus-within:bg-[var(--md-sys-color-surface-container-highest)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
+          <MaterialIcon name="search" className="w-4 h-4 text-[var(--md-sys-color-on-surface-variant)] mr-2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Поиск валюты..."
-            className="w-full bg-transparent text-xs text-[var(--md-sys-color-on-surface)] focus:outline-none placeholder:text-[var(--md-sys-color-outline)]"
+            className="w-full bg-transparent text-xs text-[var(--md-sys-color-on-surface)] focus:outline-none placeholder:text-[var(--md-sys-color-on-surface-variant)]/60"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
               className="text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] cursor-pointer"
             >
-              <MaterialIcon name="close" className="text-base" />
+              <MaterialIcon name="close" className="w-4 h-4" />
             </button>
           )}
         </div>
@@ -130,7 +130,7 @@ export const CurrencyModal: React.FC<CurrencyModalProps> = ({
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-left ${
                   isSelected
                     ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
-                    : 'hover:bg-[var(--md-sys-color-on-surface)]/8 text-[var(--md-sys-color-on-surface)]'
+                    : 'hover:bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface)]'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
@@ -146,7 +146,7 @@ export const CurrencyModal: React.FC<CurrencyModalProps> = ({
                   <span className="truncate">{cur.name}</span>
                 </div>
                 {isSelected && (
-                  <MaterialIcon name="check" className="text-lg text-[var(--md-sys-color-primary)] shrink-0 ml-2" />
+                  <MaterialIcon name="check" className="w-4 h-4 text-[var(--md-sys-color-primary)] shrink-0 ml-2" />
                 )}
               </button>
             );

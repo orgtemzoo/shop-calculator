@@ -60,10 +60,10 @@ export const M3UnitSelector: React.FC<M3UnitSelectorProps> = ({ value, onChange 
           triggerHaptic('light');
           setIsOpen(!isOpen);
         }}
-        className={`h-12 min-w-[72px] px-3.5 bg-[var(--md-sys-color-surface)] border rounded-2xl flex items-center justify-between gap-1 transition-all cursor-pointer select-none ${
+        className={`h-12 min-w-[72px] px-3.5 bg-[var(--md-sys-color-surface-container-highest)]/50 hover:bg-[var(--md-sys-color-surface-container-highest)]/70 rounded-2xl flex items-center justify-between gap-1 transition-all cursor-pointer select-none ${
           isOpen
-            ? 'border-[var(--md-sys-color-primary)] ring-2 ring-[var(--md-sys-color-primary)]/20'
-            : 'border-[var(--md-sys-color-outline)] hover:border-[var(--md-sys-color-on-surface)]'
+            ? 'ring-2 ring-[var(--md-sys-color-primary)] bg-[var(--md-sys-color-surface-container-highest)]'
+            : ''
         }`}
       >
         <span className="text-sm font-semibold text-[var(--md-sys-color-on-surface)]">
@@ -71,7 +71,7 @@ export const M3UnitSelector: React.FC<M3UnitSelectorProps> = ({ value, onChange 
         </span>
         <MaterialIcon
           name="arrow_drop_down"
-          className={`text-xl text-[var(--md-sys-color-on-surface-variant)] transition-transform duration-200 ${
+          className={`w-5 h-5 text-[var(--md-sys-color-on-surface-variant)] transition-transform duration-200 ${
             isOpen ? 'rotate-180 text-[var(--md-sys-color-primary)]' : ''
           }`}
         />
@@ -79,9 +79,9 @@ export const M3UnitSelector: React.FC<M3UnitSelectorProps> = ({ value, onChange 
 
       {/* M3 Menu Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-1.5 z-50 min-w-[200px] max-h-[320px] overflow-y-auto bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-2xl shadow-xl p-1.5 animate-in fade-in-50 zoom-in-95">
+        <div className="absolute right-0 top-full mt-2 z-50 min-w-[200px] max-h-[320px] overflow-y-auto bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-2xl shadow-xl p-1.5 animate-in fade-in-50 zoom-in-95">
           {UNIT_GROUPS.map((group, groupIdx) => (
-            <div key={group.title} className={groupIdx > 0 ? 'mt-2 pt-2 border-t border-[var(--md-sys-color-outline-variant)]/40' : ''}>
+            <div key={group.title} className={groupIdx > 0 ? 'mt-2 pt-2 border-t border-[var(--md-sys-color-outline-variant)]/20' : ''}>
               <div className="px-3 py-1 text-[11px] font-semibold text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">
                 {group.title}
               </div>
@@ -102,7 +102,7 @@ export const M3UnitSelector: React.FC<M3UnitSelectorProps> = ({ value, onChange 
                     >
                       <span>{info.label}</span>
                       {isSelected && (
-                        <MaterialIcon name="check" className="text-sm shrink-0 ml-2" />
+                        <MaterialIcon name="check" className="w-4 h-4 shrink-0 ml-2" />
                       )}
                     </button>
                   );

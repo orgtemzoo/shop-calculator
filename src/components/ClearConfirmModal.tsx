@@ -19,9 +19,9 @@ export const ClearConfirmModal: React.FC<ClearConfirmModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in-50">
-      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] border border-[var(--md-sys-color-outline-variant)]/60 shadow-2xl max-w-sm w-full p-6 text-center space-y-4 animate-in zoom-in-95">
+      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] shadow-2xl max-w-sm w-full p-6 text-center space-y-4 animate-in zoom-in-95">
         <div className="w-12 h-12 rounded-full bg-[var(--md-sys-color-error-container)] text-[var(--md-sys-color-on-error-container)] flex items-center justify-center mx-auto">
-          <MaterialIcon name="delete_forever" className="text-2xl" />
+          <MaterialIcon name="delete_forever" className="w-6 h-6" />
         </div>
 
         <div className="space-y-1">
@@ -37,7 +37,7 @@ export const ClearConfirmModal: React.FC<ClearConfirmModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 h-10 px-4 rounded-full text-xs font-medium text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-on-surface)]/8 transition-colors"
+            className="flex-1 h-10 px-4 rounded-full text-xs font-semibold text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/12 transition-colors cursor-pointer"
           >
             Отмена
           </button>
@@ -48,7 +48,7 @@ export const ClearConfirmModal: React.FC<ClearConfirmModalProps> = ({
               onConfirm();
               onClose();
             }}
-            className="flex-1 h-10 px-5 rounded-full text-xs font-medium text-[var(--md-sys-color-on-error)] bg-[var(--md-sys-color-error)] hover:opacity-90 transition-all cursor-pointer"
+            className="flex-1 h-10 px-5 rounded-full text-xs font-semibold text-[var(--md-sys-color-on-error)] bg-[var(--md-sys-color-error)] hover:opacity-90 transition-all cursor-pointer"
           >
             Очистить
           </button>

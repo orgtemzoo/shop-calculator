@@ -184,13 +184,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   return (
-    <div className="bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)] rounded-[28px] p-5 sm:p-6 border border-[var(--md-sys-color-outline-variant)]/60 shadow-xs">
+    <div className="bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)] rounded-[28px] p-5 sm:p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Form Title & Edit Indicator */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center">
-              <MaterialIcon name={editingProduct ? 'edit' : 'add'} className="text-xl" />
+              <MaterialIcon name={editingProduct ? 'edit' : 'add'} className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-semibold text-[var(--md-sys-color-on-surface)]">
@@ -212,18 +212,18 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           )}
         </div>
 
-        {/* M3 Outlined Text Field: Product Name */}
+        {/* M3 Filled Text Field: Product Name */}
         <div>
           <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
             Название товара (опционально)
           </label>
-          <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
+          <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface-container-highest)]/50 hover:bg-[var(--md-sys-color-surface-container-highest)]/70 focus-within:bg-[var(--md-sys-color-surface-container-highest)] rounded-2xl focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Например: Молоко Домик в деревне"
-              className="w-full h-full px-4 bg-transparent text-sm text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
+              className="w-full h-full px-4 bg-transparent text-sm text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-on-surface-variant)]/60 focus:outline-none"
             />
             {name && (
               <button
@@ -231,7 +231,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 onClick={() => setName('')}
                 className="w-9 h-9 mr-1.5 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 cursor-pointer"
               >
-                <MaterialIcon name="close" className="text-lg" />
+                <MaterialIcon name="close" className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -244,7 +244,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
               Цена <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
-            <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
+            <div className="relative flex items-center h-12 bg-[var(--md-sys-color-surface-container-highest)]/50 hover:bg-[var(--md-sys-color-surface-container-highest)]/70 focus-within:bg-[var(--md-sys-color-surface-container-highest)] rounded-2xl focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
               <input
                 type="number"
                 inputMode="decimal"
@@ -254,7 +254,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="100.00"
-                className="w-full h-full pl-4 pr-10 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
+                className="w-full h-full pl-4 pr-10 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-on-surface-variant)]/60 focus:outline-none"
               />
               <span className="absolute right-4 text-sm font-semibold text-[var(--md-sys-color-on-surface-variant)] pointer-events-none">
                 {currencySymbol}
@@ -268,7 +268,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               Вес / объём / количество <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
             <div className="flex gap-2">
-              <div className="flex-1 relative flex items-center h-12 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl focus-within:border-[var(--md-sys-color-primary)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)]/20 transition-all">
+              <div className="flex-1 relative flex items-center h-12 bg-[var(--md-sys-color-surface-container-highest)]/50 hover:bg-[var(--md-sys-color-surface-container-highest)]/70 focus-within:bg-[var(--md-sys-color-surface-container-highest)] rounded-2xl focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)] transition-all">
                 <input
                   type="number"
                   inputMode="decimal"
@@ -278,7 +278,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="900"
-                  className="w-full h-full px-4 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
+                  className="w-full h-full px-4 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-on-surface-variant)]/60 focus:outline-none"
                 />
               </div>
 
@@ -288,7 +288,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
         </div>
 
-        {/* M3 Suggestion Chips (Presets): Rounded-Full Pills */}
+        {/* M3 Suggestion Chips (Presets): Tonal Rounded-Full Pills */}
         {currentGroupPresets.length > 0 && (
           <div className="pt-0.5">
             <span className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
@@ -306,10 +306,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     className={`h-8 px-3.5 rounded-full text-xs font-medium inline-flex items-center gap-1 transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
-                        : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                        : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-highest)]'
                     }`}
                   >
-                    {isSelected && <MaterialIcon name="check" className="text-sm" />}
+                    {isSelected && <MaterialIcon name="check" className="w-3.5 h-3.5" />}
                     <span>{preset.label}</span>
                   </button>
                 );
@@ -318,7 +318,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
         )}
 
-        {/* M3 Filter Chips: Multipack & Promo toggles (Rounded-Full Pills) */}
+        {/* M3 Filter Chips: Multipack & Promo toggles */}
         <div className="flex flex-wrap items-center gap-2 pt-1">
           <button
             type="button"
@@ -329,10 +329,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             className={`h-8 px-3.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
               isMultiPack
                 ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
-                : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-highest)]'
             }`}
           >
-            <MaterialIcon name={isMultiPack ? 'check_box' : 'check_box_outline_blank'} className="text-base" />
+            <MaterialIcon name={isMultiPack ? 'check_box' : 'check_box_outline_blank'} className="w-4 h-4" />
             <span>Мультипак</span>
           </button>
 
@@ -345,10 +345,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             className={`h-8 px-3.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer ${
               showPromoOptions || discountType !== 'none'
                 ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
-                : 'bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-highest)]'
             }`}
           >
-            <MaterialIcon name="local_offer" className="text-base" />
+            <MaterialIcon name="local_offer" className="w-4 h-4" />
             <span>
               {discountType !== 'none'
                 ? `Акция: ${DISCOUNT_LABELS[discountType]}`
@@ -356,14 +356,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             </span>
             <MaterialIcon
               name={showPromoOptions ? 'expand_less' : 'expand_more'}
-              className="text-base"
+              className="w-4 h-4"
             />
           </button>
         </div>
 
         {/* Multipack options */}
         {isMultiPack && (
-          <div className="p-4 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-2xl space-y-2 animate-in fade-in-50">
+          <div className="p-4 bg-[var(--md-sys-color-surface-container)] rounded-2xl space-y-2 animate-in fade-in-50">
             <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface)]">
               Количество штук в упаковке:
             </label>
@@ -375,7 +375,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 max="999"
                 value={packCount}
                 onChange={(e) => setPackCount(e.target.value)}
-                className="w-24 px-3.5 py-2 bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)] rounded-xl text-sm font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
+                className="w-24 px-3.5 py-2 bg-[var(--md-sys-color-surface-container-highest)] rounded-xl text-sm font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary)]"
               />
               <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
                 шт. по {quantity || '0'} {currentUnitInfo.label} (всего{' '}
@@ -390,7 +390,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* Promo discount options */}
         {showPromoOptions && (
-          <div className="p-4 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-2xl space-y-3 animate-in fade-in-50">
+          <div className="p-4 bg-[var(--md-sys-color-surface-container)] rounded-2xl space-y-3 animate-in fade-in-50">
             <span className="block text-xs font-medium text-[var(--md-sys-color-on-surface)]">
               Тип скидки или спецпредложения:
             </span>
@@ -417,7 +417,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     className={`h-8 px-3.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
-                        : 'bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                        : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-highest)]'
                     }`}
                   >
                     {label}
@@ -439,7 +439,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   value={discountValue}
                   onChange={(e) => setDiscountValue(e.target.value)}
                   placeholder="20"
-                  className="w-24 px-3 py-1.5 bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
+                  className="w-24 px-3 py-1.5 bg-[var(--md-sys-color-surface-container-highest)] rounded-xl text-xs font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary)]"
                 />
                 <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">%</span>
               </div>
@@ -458,7 +458,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   value={discountValue}
                   onChange={(e) => setDiscountValue(e.target.value)}
                   placeholder="119.90"
-                  className="w-28 px-3 py-1.5 bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)] rounded-xl text-xs font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)]"
+                  className="w-28 px-3 py-1.5 bg-[var(--md-sys-color-surface-container-highest)] rounded-xl text-xs font-semibold text-[var(--md-sys-color-on-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary)]"
                 />
                 <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">{currencySymbol}</span>
               </div>
@@ -468,7 +468,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* Live Preview Card */}
         {liveCalculated && (
-          <div className="p-4 bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[20px] border border-[var(--md-sys-color-outline-variant)]/60 space-y-1.5 animate-in fade-in-50">
+          <div className="p-4 bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[20px] space-y-1.5 animate-in fade-in-50">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">
                 Предпросмотр расчёта:
@@ -499,12 +499,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
         )}
 
-        {/* M3 Filled Button: Submit (Rounded Full) */}
+        {/* M3 Filled Button: Submit */}
         <button
           type="submit"
-          className="w-full h-12 rounded-full font-semibold text-sm text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-95 active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all"
+          className="w-full h-12 rounded-full font-semibold text-sm text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-95 active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer transition-all"
         >
-          <MaterialIcon name={editingProduct ? 'check' : 'add'} className="text-xl" />
+          <MaterialIcon name={editingProduct ? 'check' : 'add'} className="w-5 h-5" />
           <span>{editingProduct ? 'Сохранить изменения' : 'Добавить в список'}</span>
         </button>
       </form>

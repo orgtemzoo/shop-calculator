@@ -66,7 +66,7 @@ export const TabModal: React.FC<TabModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in-50">
-      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] border border-[var(--md-sys-color-outline-variant)]/60 shadow-2xl max-w-md w-full p-6 space-y-4 animate-in zoom-in-95">
+      <div className="bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-[28px] shadow-2xl max-w-md w-full p-6 space-y-4 animate-in zoom-in-95">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] flex items-center justify-center text-xl">
@@ -78,15 +78,15 @@ export const TabModal: React.FC<TabModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-on-surface)]/8 cursor-pointer"
           >
-            <MaterialIcon name="close" className="text-xl" />
+            <MaterialIcon name="close" className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1">
+            <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1 pl-1">
               Название категории <span className="text-[var(--md-sys-color-error)]">*</span>
             </label>
             <input
@@ -96,7 +96,7 @@ export const TabModal: React.FC<TabModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Например: Кофе и чай"
-              className="w-full px-4 py-3 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl text-sm text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)] focus:ring-2 focus:ring-[var(--md-sys-color-primary)]/20 transition-all"
+              className="w-full px-4 py-3 bg-[var(--md-sys-color-surface-container-highest)]/70 rounded-2xl text-sm text-[var(--md-sys-color-on-surface)] focus:outline-none focus:bg-[var(--md-sys-color-surface-container-highest)] focus:ring-2 focus:ring-[var(--md-sys-color-primary)] transition-all"
             />
           </div>
 
@@ -104,7 +104,7 @@ export const TabModal: React.FC<TabModalProps> = ({
             <label className="block text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-1.5 pl-1">
               Иконка:
             </label>
-            <div className="flex flex-wrap gap-1.5 p-2 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-2xl max-h-28 overflow-y-auto">
+            <div className="flex flex-wrap gap-1.5 p-2.5 bg-[var(--md-sys-color-surface-container-highest)]/50 rounded-2xl max-h-28 overflow-y-auto">
               {EMOJI_PRESETS.map((em) => (
                 <button
                   key={em}
@@ -116,7 +116,7 @@ export const TabModal: React.FC<TabModalProps> = ({
                   className={`w-9 h-9 rounded-xl text-lg flex items-center justify-center transition-all cursor-pointer ${
                     emoji === em
                       ? 'bg-[var(--md-sys-color-secondary-container)] scale-110 shadow-xs'
-                      : 'hover:bg-[var(--md-sys-color-surface-container-high)]'
+                      : 'hover:bg-[var(--md-sys-color-surface-container-highest)]'
                   }`}
                 >
                   {em}
@@ -132,7 +132,7 @@ export const TabModal: React.FC<TabModalProps> = ({
             <select
               value={defaultUnit}
               onChange={(e) => setDefaultUnit(e.target.value as UnitType)}
-              className="w-full px-4 py-3 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-2xl text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none focus:border-[var(--md-sys-color-primary)] cursor-pointer"
+              className="w-full px-4 py-3 bg-[var(--md-sys-color-surface-container-highest)]/70 rounded-2xl text-sm font-medium text-[var(--md-sys-color-on-surface)] focus:outline-none focus:bg-[var(--md-sys-color-surface-container-highest)] focus:ring-2 focus:ring-[var(--md-sys-color-primary)] cursor-pointer"
             >
               <option value="g">Граммы (г) / Килограммы (кг)</option>
               <option value="ml">Миллилитры (мл) / Литры (л)</option>
@@ -150,9 +150,9 @@ export const TabModal: React.FC<TabModalProps> = ({
               <button
                 type="button"
                 onClick={handleDelete}
-                className="h-10 px-3 rounded-full text-xs font-medium text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 flex items-center gap-1 cursor-pointer transition-colors"
+                className="h-10 px-3.5 rounded-full text-xs font-semibold text-[var(--md-sys-color-error)] hover:bg-[var(--md-sys-color-error-container)]/30 flex items-center gap-1.5 cursor-pointer transition-colors"
               >
-                <MaterialIcon name="delete" className="text-base" />
+                <MaterialIcon name="delete" className="w-4 h-4" />
                 <span>Удалить</span>
               </button>
             ) : <div />}
@@ -161,13 +161,13 @@ export const TabModal: React.FC<TabModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="h-10 px-4 rounded-full text-xs font-medium text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/8 cursor-pointer"
+                className="h-10 px-4 rounded-full text-xs font-semibold text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/12 cursor-pointer"
               >
                 Отмена
               </button>
               <button
                 type="submit"
-                className="h-10 px-6 rounded-full text-xs font-medium text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 transition-all cursor-pointer"
+                className="h-10 px-6 rounded-full text-xs font-semibold text-[var(--md-sys-color-on-primary)] bg-[var(--md-sys-color-primary)] hover:opacity-90 transition-all cursor-pointer"
               >
                 Сохранить
               </button>

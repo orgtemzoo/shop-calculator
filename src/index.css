@@ -91,12 +91,6 @@ html.dark {
 }
 
 @layer base {
-  * {
-    border-color: var(--md-sys-color-outline-variant);
-    scrollbar-width: thin;
-    scrollbar-color: var(--md-sys-color-outline-variant) transparent;
-  }
-
   body {
     background-color: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
@@ -134,17 +128,9 @@ html.dark {
   background: var(--md-sys-color-outline);
 }
 
-/* Material 3 Elevation shadows */
-.m3-elevation-1 {
-  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
-}
-
-.m3-elevation-2 {
-  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
-}
-
-.m3-elevation-3 {
-  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.08), 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-sys-color-outline-variant) transparent;
 }
 
 /* Scrollbar utility for hidden horizontal scrolling */

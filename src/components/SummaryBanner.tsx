@@ -28,11 +28,11 @@ export const SummaryBanner: React.FC<SummaryBannerProps> = ({ products, currency
   ).toFixed(1);
 
   return (
-    <div className="bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] rounded-[28px] p-5 sm:p-6 border border-[var(--md-sys-color-primary)]/20 shadow-xs transition-all">
+    <div className="bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] rounded-[28px] p-5 sm:p-6 transition-all">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] flex items-center justify-center shrink-0 shadow-xs">
-            <MaterialIcon name="savings" className="text-2xl" filled />
+          <div className="w-11 h-11 rounded-full bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] flex items-center justify-center shrink-0">
+            <MaterialIcon name="savings" className="w-6 h-6" filled />
           </div>
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider opacity-80">
@@ -52,8 +52,8 @@ export const SummaryBanner: React.FC<SummaryBannerProps> = ({ products, currency
         </div>
       </div>
 
-      <div className="mt-3 pt-3 border-t border-[var(--md-sys-color-on-primary-container)]/15 flex items-center gap-1.5 text-xs font-medium">
-        <MaterialIcon name="trending_down" className="text-base shrink-0" />
+      <div className="mt-3 pt-2 flex items-center gap-1.5 text-xs font-medium">
+        <MaterialIcon name="trending_down" className="w-4 h-4 shrink-0" />
         <span>
           Выгода: <strong>{formatMoney(maxSavingsRub, currencySymbol)}</strong> на каждый{' '}
           <strong>{unitInfo.standardUnit}</strong> по сравнению с самым дорогим

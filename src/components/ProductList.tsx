@@ -29,7 +29,7 @@ export const ProductList: React.FC<ProductListProps> = ({
 
   if (products.length === 0) {
     return (
-      <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[28px] p-8 text-center space-y-4 border border-[var(--md-sys-color-outline-variant)]/40">
+      <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[28px] p-8 text-center space-y-4">
         <div className="w-16 h-16 rounded-full bg-[var(--md-sys-color-surface-container-high)] flex items-center justify-center mx-auto text-3xl">
           {categoryEmoji || '🛒'}
         </div>
@@ -49,7 +49,7 @@ export const ProductList: React.FC<ProductListProps> = ({
           }}
           className="h-10 px-5 rounded-full text-xs font-medium bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] hover:opacity-90 inline-flex items-center gap-2 transition-all cursor-pointer"
         >
-          <MaterialIcon name="add" className="text-base" />
+          <MaterialIcon name="add" className="w-4 h-4" />
           <span>Добавить пример</span>
         </button>
       </div>
@@ -78,13 +78,13 @@ export const ProductList: React.FC<ProductListProps> = ({
     <div className="space-y-3">
       {/* Header controls */}
       <div className="flex items-center justify-between px-1">
-        <span className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">
+        <span className="text-xs font-semibold text-[var(--md-sys-color-on-surface-variant)] uppercase tracking-wider">
           Список товаров ({products.length})
         </span>
 
         {products.length > 2 && (
-          <div className="relative flex items-center bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline-variant)]/60 rounded-full h-8 px-2.5">
-            <MaterialIcon name="sort" className="text-sm text-[var(--md-sys-color-on-surface-variant)] mr-1" />
+          <div className="relative flex items-center bg-[var(--md-sys-color-surface-container-high)] rounded-full h-8 pl-3 pr-2">
+            <MaterialIcon name="sort" className="w-4 h-4 text-[var(--md-sys-color-on-surface-variant)] mr-1.5" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
@@ -94,7 +94,7 @@ export const ProductList: React.FC<ProductListProps> = ({
               <option value="price">По цене пачки</option>
               <option value="name">По названию</option>
             </select>
-            <MaterialIcon name="arrow_drop_down" className="absolute right-1 text-base text-[var(--md-sys-color-on-surface-variant)] pointer-events-none" />
+            <MaterialIcon name="arrow_drop_down" className="w-4 h-4 text-[var(--md-sys-color-on-surface-variant)] pointer-events-none -ml-3" />
           </div>
         )}
       </div>

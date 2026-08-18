@@ -397,10 +397,9 @@ export const App: React.FC = () => {
       />
 
       <ShareModal
-        tab={activeTab}
-        calculatedProducts={calculatedProducts}
-        currencySymbol={appState.currencySymbol || '₽'}
         isOpen={isShareModalOpen}
+        tab={activeTab}
+        currencySymbol={appState.currencySymbol || '₽'}
         onClose={() => setIsShareModalOpen(false)}
         onShowToast={addToast}
       />
@@ -419,9 +418,15 @@ export const App: React.FC = () => {
 
       <JsonModal
         isOpen={isJsonModalOpen}
-        appState={appState}
+        tabs={appState.tabs}
         onClose={() => setIsJsonModalOpen(false)}
-        onRestoreState={(imported) => setAppState(imported)}
+        onImportTabs={(importedTabs) => {
+          setAppState((prev) => ({
+            ...prev,
+            tabs: importedTabs,
+            activeTabId: importedTabs[0]?.id || prev.activeTabId
+          }));
+        }}
         onShowToast={addToast}
       />
 

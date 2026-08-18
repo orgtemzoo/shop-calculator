@@ -1,5 +1,6 @@
 import React from 'react';
 import { MaterialIcon } from './MaterialIcon';
+import { CURRENCY_OPTIONS } from './CurrencyModal';
 import { triggerHaptic } from '../utils/haptics';
 
 interface HeaderProps {
@@ -25,6 +26,7 @@ export const Header: React.FC<HeaderProps> = ({
   hasProducts,
   activeCategoryName
 }) => {
+  const activeFlag = CURRENCY_OPTIONS.find((c) => c.symbol === currencySymbol)?.flag;
   const toggleTheme = () => {
     triggerHaptic('light');
     const nextTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light';
@@ -58,10 +60,20 @@ export const Header: React.FC<HeaderProps> = ({
               onOpenCurrency();
             }}
             title={`Валюта: ${currencySymbol}`}
-            className="h-9 px-2.5 rounded-full flex items-center gap-1 text-xs font-bold bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/60 cursor-pointer transition-colors"
+            className="h-9 pl-2 pr-2.5 rounded-full flex items-center gap-1.5 text-xs font-bold bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] hover:bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/60 cursor-pointer transition-colors"
           >
+            {activeFlag && (
+              <img
+                src={`./flags/${activeFlag}.svg`}
+                alt=""
+                className="w-4 h-4 rounded-full object-cover shrink-0"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            )}
             <span>{currencySymbol}</span>
-            <MaterialIcon name="arrow_drop_down" className="text-base text-[var(--md-sys-color-on-surface-variant)] -mr-0.5" />
+            <MaterialIcon name="arrow_drop_down" className="text-base text-[var(--md-sys-color-on-surface-variant)] -mr-1" />
           </button>
 
           {/* Share */}

@@ -74,6 +74,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
             Фасовка: {formatQuantity(product.quantity, product.unit, product.packCount)} • Цена:{' '}
             {formatMoney(product.price, currencySymbol)}
+            {product.discountType !== 'none' && (
+              <span className="text-[var(--md-sys-color-primary)] font-medium ml-1">
+                (по акции: {formatMoney(product.effectiveTotalPrice, currencySymbol)})
+              </span>
+            )}
             {product.packCount > 1 && ` × ${product.packCount} шт`}
           </p>
         </div>

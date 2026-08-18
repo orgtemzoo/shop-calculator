@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { MaterialIcon } from './MaterialIcon';
 import { CategoryTab } from '../types';
 import { triggerHaptic } from '../utils/haptics';
@@ -27,31 +28,39 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
           const productCount = tab.products.length;
 
           return (
-            <div
-              key={tab.id}
-              className={`shrink-0 h-10 px-3.5 rounded-full flex items-center gap-1.5 transition-colors duration-150 ease-out select-none ${
-                isActive
-                  ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
-                  : 'bg-transparent text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] font-medium'
-              }`}
-            >
-              {/* Tab Title Click */}
+            <div key={tab.id} className="relative shrink-0 flex items-center">
+              {/* Genuine Material 3 Sliding Active Indicator Pill */}
+              {isActive && (
+                <motion.div
+                  layoutId="active-category-pill"
+                  className="absolute inset-0 rounded-full bg-[var(--md-sys-color-secondary-container)]"
+                  transition={{
+                    type: 'spring',
+                    stiffness: 380,
+                    damping: 30
+                  }}
+                />
+              )}
+
+              {/* Tab Button & Content */}
               <button
                 type="button"
                 onClick={() => {
                   triggerHaptic('light');
                   onSelectTab(tab.id);
                 }}
-                className="h-full flex items-center gap-1.5 text-sm cursor-pointer"
+                className={`relative z-10 h-10 px-4 rounded-full flex items-center gap-1.5 text-sm select-none transition-colors duration-150 cursor-pointer ${
+                  isActive
+                    ? 'text-[var(--md-sys-color-on-secondary-container)] font-semibold'
+                    : 'text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]/60 font-medium'
+                }`}
               >
                 <span className="text-base leading-none shrink-0">{tab.emoji}</span>
-                <span className="truncate max-w-[110px] sm:max-w-[150px]">
-                  {tab.title}
-                </span>
+                <span className="truncate max-w-[110px] sm:max-w-[150px]">{tab.title}</span>
 
                 {productCount > 0 && (
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full font-bold shrink-0 ${
+                    className={`text-xs px-2 py-0.5 rounded-full font-bold shrink-0 transition-colors ${
                       isActive
                         ? 'bg-[var(--md-sys-color-on-secondary-container)]/15 text-[var(--md-sys-color-on-secondary-container)]'
                         : 'bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface-variant)]'
@@ -62,7 +71,7 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
                 )}
               </button>
 
-              {/* Edit Category Button */}
+              {/* Edit Tune Button for active tab */}
               {isActive && (
                 <button
                   type="button"
@@ -72,7 +81,7 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
                     onEditTab(tab);
                   }}
                   title="Настройки категории"
-                  className="w-6 h-6 -mr-1 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-secondary-container)]/80 hover:bg-[var(--md-sys-color-on-secondary-container)]/20 transition-colors cursor-pointer"
+                  className="relative z-10 w-7 h-7 -ml-2 mr-2 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-secondary-container)]/80 hover:bg-[var(--md-sys-color-on-secondary-container)]/20 transition-colors cursor-pointer"
                 >
                   <MaterialIcon name="tune" className="text-base" />
                 </button>
@@ -81,7 +90,7 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
           );
         })}
 
-        {/* M3 Assist Chip: Add New Tab */}
+        {/* Add Tab Assist Chip */}
         <button
           type="button"
           onClick={() => {

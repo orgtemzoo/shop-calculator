@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Header } from './components/Header';
 import { CategoryTabs } from './components/CategoryTabs';
 import { ProductForm } from './components/ProductForm';
@@ -343,12 +344,6 @@ export const App: React.FC = () => {
 
       {/* Main App Body */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-4 sm:py-6 space-y-4 sm:space-y-5">
-        {/* Summary Winner Banner */}
-        <SummaryBanner
-          products={calculatedProducts}
-          currencySymbol={appState.currencySymbol || '₽'}
-        />
-
         {/* Add/Edit Product Form */}
         <ProductForm
           defaultUnit={activeTab.defaultUnit || 'g'}
@@ -359,17 +354,35 @@ export const App: React.FC = () => {
           onCancelEdit={() => setEditingProduct(null)}
         />
 
-        {/* Products Comparison List */}
-        <ProductList
-          products={calculatedProducts}
-          currencySymbol={appState.currencySymbol || '₽'}
-          categoryEmoji={activeTab.emoji}
-          categoryTitle={activeTab.title}
-          onEditProduct={handleEditProduct}
-          onDuplicateProduct={handleDuplicateProduct}
-          onDeleteProduct={handleDeleteProduct}
-          onAddSampleProduct={handleAddSampleProduct}
-        />
+        {/* Dynamic Category Products & Summary with smooth cross-fade */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab.id}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.16, ease: 'easeOut' }}
+            className="space-y-4 sm:space-y-5"
+          >
+            {/* Summary Winner Banner */}
+            <SummaryBanner
+              products={calculatedProducts}
+              currencySymbol={appState.currencySymbol || '₽'}
+            />
+
+            {/* Products Comparison List */}
+            <ProductList
+              products={calculatedProducts}
+              currencySymbol={appState.currencySymbol || '₽'}
+              categoryEmoji={activeTab.emoji}
+              categoryTitle={activeTab.title}
+              onEditProduct={handleEditProduct}
+              onDuplicateProduct={handleDuplicateProduct}
+              onDeleteProduct={handleDeleteProduct}
+              onAddSampleProduct={handleAddSampleProduct}
+            />
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Modals & Dialogs */}

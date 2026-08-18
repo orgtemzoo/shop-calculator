@@ -29,10 +29,10 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
           return (
             <div
               key={tab.id}
-              className={`shrink-0 h-10 rounded-full flex items-center transition-all select-none ${
+              className={`shrink-0 h-10 px-3.5 rounded-full flex items-center gap-1.5 transition-colors duration-150 ease-out select-none ${
                 isActive
-                  ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] pl-3.5 pr-1.5'
-                  : 'bg-transparent text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] px-3.5'
+                  ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-semibold'
+                  : 'bg-transparent text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] font-medium'
               }`}
             >
               {/* Tab Title Click */}
@@ -42,16 +42,16 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
                   triggerHaptic('light');
                   onSelectTab(tab.id);
                 }}
-                className="h-full flex items-center gap-2 text-sm font-medium cursor-pointer"
+                className="h-full flex items-center gap-1.5 text-sm cursor-pointer"
               >
-                <span className="text-base leading-none">{tab.emoji}</span>
-                <span className="truncate max-w-[120px] sm:max-w-[160px]">
+                <span className="text-base leading-none shrink-0">{tab.emoji}</span>
+                <span className="truncate max-w-[110px] sm:max-w-[150px]">
                   {tab.title}
                 </span>
 
                 {productCount > 0 && (
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                    className={`text-xs px-2 py-0.5 rounded-full font-bold shrink-0 ${
                       isActive
                         ? 'bg-[var(--md-sys-color-on-secondary-container)]/15 text-[var(--md-sys-color-on-secondary-container)]'
                         : 'bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface-variant)]'
@@ -62,7 +62,7 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
                 )}
               </button>
 
-              {/* Always accessible Edit Button for the active tab */}
+              {/* Edit Category Button */}
               {isActive && (
                 <button
                   type="button"
@@ -72,7 +72,7 @@ export const CategoryTabs: React.FC<CategoryTabsProps> = ({
                     onEditTab(tab);
                   }}
                   title="Настройки категории"
-                  className="w-7 h-7 ml-1 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-secondary-container)]/80 hover:bg-[var(--md-sys-color-on-secondary-container)]/20 transition-colors cursor-pointer"
+                  className="w-6 h-6 -mr-1 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-secondary-container)]/80 hover:bg-[var(--md-sys-color-on-secondary-container)]/20 transition-colors cursor-pointer"
                 >
                   <MaterialIcon name="tune" className="text-base" />
                 </button>

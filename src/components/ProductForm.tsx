@@ -19,6 +19,7 @@ import { triggerHaptic } from '../utils/haptics';
 
 interface ProductFormProps {
   defaultUnit: UnitType;
+  currencySymbol?: string;
   existingProducts: CalculatedProduct[];
   editingProduct: Product | null;
   onSaveProduct: (productData: Omit<Product, 'id' | 'createdAt'>) => void;
@@ -27,6 +28,7 @@ interface ProductFormProps {
 
 export const ProductForm: React.FC<ProductFormProps> = ({
   defaultUnit,
+  currencySymbol = '₽',
   existingProducts,
   editingProduct,
   onSaveProduct,
@@ -134,7 +136,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             ).toFixed(2);
             comparisonBadge = {
               type: 'worse',
-              text: `+${diffPct}% к лидеру (+${diffRub} ₽ / ${currentUnitInfo.standardUnit})`
+              text: `+${diffPct}% к лидеру (+${diffRub} ${currencySymbol} / ${currentUnitInfo.standardUnit})`
             };
           }
         }
@@ -261,7 +263,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 className="w-full h-full pl-4 pr-9 bg-transparent text-sm font-semibold text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-outline)] focus:outline-none"
               />
               <span className="absolute right-4 text-sm font-semibold text-[var(--md-sys-color-on-surface-variant)] pointer-events-none">
-                ₽
+                {currencySymbol}
               </span>
             </div>
           </div>
@@ -480,7 +482,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   placeholder="119.90"
                   className="w-28 px-3 py-1.5 bg-[var(--md-sys-color-surface)] border border-[var(--md-sys-color-outline)] rounded-lg text-xs font-semibold text-[var(--md-sys-color-on-surface)]"
                 />
-                <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">₽</span>
+                <span className="text-xs text-[var(--md-sys-color-on-surface-variant)]">{currencySymbol}</span>
               </div>
             )}
           </div>
@@ -495,7 +497,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               </span>
               <div className="text-right">
                 <span className="text-lg font-bold text-[var(--md-sys-color-primary)]">
-                  {formatMoney(liveCalculated.calculated.pricePerStandardUnit)}
+                  {formatMoney(liveCalculated.calculated.pricePerStandardUnit, currencySymbol)}
                 </span>
                 <span className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] ml-1">
                   / {currentUnitInfo.standardUnit}

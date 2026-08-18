@@ -6,6 +6,7 @@ import { triggerHaptic } from '../utils/haptics';
 
 interface ProductListProps {
   products: CalculatedProduct[];
+  currencySymbol?: string;
   categoryEmoji: string;
   categoryTitle: string;
   onEditProduct: (product: CalculatedProduct) => void;
@@ -16,6 +17,7 @@ interface ProductListProps {
 
 export const ProductList: React.FC<ProductListProps> = ({
   products,
+  currencySymbol = '₽',
   categoryEmoji,
   categoryTitle,
   onEditProduct,
@@ -109,6 +111,7 @@ export const ProductList: React.FC<ProductListProps> = ({
             <ProductCard
               key={product.id}
               product={product}
+              currencySymbol={currencySymbol}
               totalInGroup={totalInGroup}
               secondBestPrice={secondBestPrice}
               onEdit={onEditProduct}

@@ -6,6 +6,7 @@ import { triggerHaptic } from '../utils/haptics';
 
 interface ProductCardProps {
   product: CalculatedProduct;
+  currencySymbol?: string;
   totalInGroup: number;
   secondBestPrice?: number;
   onEdit: (product: CalculatedProduct) => void;
@@ -15,6 +16,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
+  currencySymbol = '₽',
   totalInGroup,
   secondBestPrice,
   onEdit,
@@ -31,7 +33,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       100
     ).toFixed(1);
     const diffRub = (secondBestPrice - product.pricePerStandardUnit).toFixed(2);
-    bestSavingsText = `Выгоднее второго места на ${diffPct}% (экономия ${diffRub} ₽ за ${unitInfo.standardUnit})`;
+    bestSavingsText = `Выгоднее второго места на ${diffPct}% (экономия ${diffRub} ${currencySymbol} за ${unitInfo.standardUnit})`;
   }
 
   return (
@@ -71,7 +73,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
           <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
             Фасовка: {formatQuantity(product.quantity, product.unit, product.packCount)} • Цена:{' '}
-            {formatMoney(product.price)}
+            {formatMoney(product.price, currencySymbol)}
             {product.packCount > 1 && ` × ${product.packCount} шт`}
           </p>
         </div>
@@ -85,7 +87,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 : 'text-[var(--md-sys-color-on-surface)]'
             }`}
           >
-            {formatMoney(product.pricePerStandardUnit)}
+            {formatMoney(product.pricePerStandardUnit, currencySymbol)}
           </div>
           <div className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
             за {unitInfo.standardUnit}
@@ -110,7 +112,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   <MaterialIcon name="trending_up" className="text-sm shrink-0" />
                   <span>+ {product.diffPercentVsBest.toFixed(1)}% дороже лидера</span>
                 </div>
-                <span>+{(product.diffPriceVsBest).toFixed(2)} ₽ / {unitInfo.standardUnit}</span>
+                <span>+{(product.diffPriceVsBest).toFixed(2)} {currencySymbol} / {unitInfo.standardUnit}</span>
               </div>
 
               <div className="w-full bg-[var(--md-sys-color-surface-container-highest)] h-1.5 rounded-full overflow-hidden">

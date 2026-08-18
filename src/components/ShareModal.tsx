@@ -8,6 +8,7 @@ import { triggerHaptic } from '../utils/haptics';
 interface ShareModalProps {
   tab: CategoryTab;
   calculatedProducts: CalculatedProduct[];
+  currencySymbol?: string;
   isOpen: boolean;
   onClose: () => void;
   onShowToast: (text: string, type?: 'success' | 'info' | 'error') => void;
@@ -16,6 +17,7 @@ interface ShareModalProps {
 export const ShareModal: React.FC<ShareModalProps> = ({
   tab,
   calculatedProducts,
+  currencySymbol = '₽',
   isOpen,
   onClose,
   onShowToast
@@ -39,7 +41,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       
       text += `${medal} #${p.rank} ${p.name}\n`;
       text += `   • Фасовка: ${formatQuantity(p.quantity, p.unit, p.packCount)}\n`;
-      text += `   • Итог: ${formatMoney(p.pricePerStandardUnit)} / ${unitInfo.standardUnit}${winnerTag}${diffTag}\n\n`;
+      text += `   • Итог: ${formatMoney(p.pricePerStandardUnit, currencySymbol)} / ${unitInfo.standardUnit}${winnerTag}${diffTag}\n\n`;
     });
 
     if (calculatedProducts.length >= 2) {
@@ -47,7 +49,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       const worst = calculatedProducts[calculatedProducts.length - 1];
       const diffRub = worst.pricePerStandardUnit - best.pricePerStandardUnit;
       const unitInfo = UNITS_CONFIG[best.unit] || UNITS_CONFIG.g;
-      text += `💰 Экономия: до ${formatMoney(diffRub)} на каждый ${unitInfo.standardUnit}!\n`;
+      text += `💰 Экономия: до ${formatMoney(diffRub, currencySymbol)} на каждый ${unitInfo.standardUnit}!\n`;
     }
 
     text += `\n✨ Рассчитано в Шоп-Калькуляторе`;

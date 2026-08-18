@@ -8,6 +8,7 @@ import { ShareModal } from './components/ShareModal';
 import { TabModal } from './components/TabModal';
 import { JsonModal } from './components/JsonModal';
 import { ClearConfirmModal } from './components/ClearConfirmModal';
+import { CurrencyModal } from './components/CurrencyModal';
 import { ToastContainer, ToastMessage } from './components/Toast';
 import { Product, CategoryTab, AppState, CalculatedProduct, UnitType } from './types';
 import {
@@ -28,6 +29,7 @@ export const App: React.FC = () => {
   const [isTabModalOpen, setIsTabModalOpen] = useState(false);
   const [isJsonModalOpen, setIsJsonModalOpen] = useState(false);
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
+  const [isCurrencyModalOpen, setIsCurrencyModalOpen] = useState(false);
 
   // Toasts
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -313,7 +315,9 @@ export const App: React.FC = () => {
       {/* Top Navigation */}
       <Header
         theme={appState.theme}
+        currencySymbol={appState.currencySymbol || '₽'}
         onThemeChange={(theme) => setAppState((prev) => ({ ...prev, theme }))}
+        onOpenCurrency={() => setIsCurrencyModalOpen(true)}
         onOpenShare={() => setIsShareModalOpen(true)}
         onOpenBackup={() => setIsJsonModalOpen(true)}
         onClearCategory={() => setIsClearModalOpen(true)}
@@ -340,11 +344,15 @@ export const App: React.FC = () => {
       {/* Main App Body */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-4 sm:py-6 space-y-4 sm:space-y-5">
         {/* Summary Winner Banner */}
-        <SummaryBanner products={calculatedProducts} />
+        <SummaryBanner
+          products={calculatedProducts}
+          currencySymbol={appState.currencySymbol || '₽'}
+        />
 
         {/* Add/Edit Product Form */}
         <ProductForm
           defaultUnit={activeTab.defaultUnit || 'g'}
+          currencySymbol={appState.currencySymbol || '₽'}
           existingProducts={calculatedProducts}
           editingProduct={editingProduct}
           onSaveProduct={handleSaveProduct}
@@ -354,6 +362,7 @@ export const App: React.FC = () => {
         {/* Products Comparison List */}
         <ProductList
           products={calculatedProducts}
+          currencySymbol={appState.currencySymbol || '₽'}
           categoryEmoji={activeTab.emoji}
           categoryTitle={activeTab.title}
           onEditProduct={handleEditProduct}
@@ -364,9 +373,20 @@ export const App: React.FC = () => {
       </main>
 
       {/* Modals & Dialogs */}
+      <CurrencyModal
+        isOpen={isCurrencyModalOpen}
+        selectedCurrency={appState.currencySymbol || '₽'}
+        onClose={() => setIsCurrencyModalOpen(false)}
+        onSelectCurrency={(cur) => {
+          setAppState((prev) => ({ ...prev, currencySymbol: cur }));
+          addToast(`Валюта изменена на ${cur}`, 'success');
+        }}
+      />
+
       <ShareModal
         tab={activeTab}
         calculatedProducts={calculatedProducts}
+        currencySymbol={appState.currencySymbol || '₽'}
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
         onShowToast={addToast}

@@ -5,9 +5,10 @@ import { UNITS_CONFIG, formatMoney } from '../utils/calculator';
 
 interface SummaryBannerProps {
   products: CalculatedProduct[];
+  currencySymbol?: string;
 }
 
-export const SummaryBanner: React.FC<SummaryBannerProps> = ({ products }) => {
+export const SummaryBanner: React.FC<SummaryBannerProps> = ({ products, currencySymbol = '₽' }) => {
   if (products.length < 2) return null;
 
   const bestProduct = products.find((p) => p.isBestDeal && p.rank === 1);
@@ -54,7 +55,7 @@ export const SummaryBanner: React.FC<SummaryBannerProps> = ({ products }) => {
       <div className="mt-3 pt-3 border-t border-[var(--md-sys-color-on-primary-container)]/15 flex items-center gap-1.5 text-xs font-medium">
         <MaterialIcon name="trending_down" className="text-base shrink-0" />
         <span>
-          Выгода: <strong>{formatMoney(maxSavingsRub)}</strong> на каждый{' '}
+          Выгода: <strong>{formatMoney(maxSavingsRub, currencySymbol)}</strong> на каждый{' '}
           <strong>{unitInfo.standardUnit}</strong> по сравнению с самым дорогим
         </span>
       </div>
